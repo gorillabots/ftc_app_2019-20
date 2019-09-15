@@ -14,8 +14,7 @@ public class SampleOpMode extends LinearOpMode
         waitForStart();
 
         int n = 1;
-        int eee = 666;
-        while(opModeIsActive() && n > 0)
+        while(opModeIsActive())
         {
             telemetry.addData("Status", "Running");
             telemetry.addData("Count", n++);
