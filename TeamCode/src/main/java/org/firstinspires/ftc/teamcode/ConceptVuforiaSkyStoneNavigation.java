@@ -147,18 +147,8 @@ public class ConceptVuforiaSkyStoneNavigation extends LinearOpMode {
     @Override
     public void runOpMode()
     {
-        am = hardwareMap.appContext.getAssets();
-
-        try
-        {
-            InputStream is = am.open("vuforiakey.txt");
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            VUFORIA_KEY = br.readLine();
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+        //Get vuforia key
+        VUFORIA_KEY = VuforiaKeyManager.getVuforiaKey(hardwareMap, "vuforiakey.txt");
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
