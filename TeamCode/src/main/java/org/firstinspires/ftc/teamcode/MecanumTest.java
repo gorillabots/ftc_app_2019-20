@@ -16,6 +16,8 @@ public class MecanumTest extends LinearOpMode
         drive = new MecanumDrive();
         drive.init(hardwareMap);
 
+        waitForStart();
+
         while(opModeIsActive())
         {
             double x = gamepad1.left_stick_x;
