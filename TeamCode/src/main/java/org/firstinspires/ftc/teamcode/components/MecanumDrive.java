@@ -7,7 +7,7 @@ public class MecanumDrive
 {
     DcMotor mfl, mfr, mbl, mbr;
 
-    public void init(HardwareMap hardwareMap)
+    public MecanumDrive(HardwareMap hardwareMap)
     {
         mfl = hardwareMap.dcMotor.get("mfl");
         mfr = hardwareMap.dcMotor.get("mfr");
