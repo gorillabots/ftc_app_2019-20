@@ -1,34 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
+import org.firstinspires.ftc.teamcode.components.RevGyro;
 
 @TeleOp(group="tests", name="MecanumDriverCentricTest")
 public class MecanumDriverCentricTest extends LinearOpMode
 {
     MecanumDrive drive;
-
-
+    RevGyro gyro;
 
     @Override
     public void runOpMode()
     {
-        drive = new MecanumDrive();
-        drive.init(hardwareMap);
-
-        BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
-
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled = true;
-        parameters.loggingTag = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+        drive = new MecanumDrive(hardwareMap);
+        gyro = new RevGyro(hardwareMap);
+        gyro.resetAngle();
 
         waitForStart();
 
@@ -38,7 +27,16 @@ public class MecanumDriverCentricTest extends LinearOpMode
             double y = gamepad1.left_stick_y;
             double r = gamepad1.right_stick_x;
 
-            drive.go(x, y, r);
+            double dir = Math.atan2(x, y);
+            double pow = Math.hypot(x, y);
+
+            dir += 2 * Math.PI - gyro.getAngle();
+            dir %= 2 * Math.PI;
+
+            double nx = pow * Math.cos(dir);
+            double ny = pow * Math.sin(dir);
+
+            drive.go(nx, ny, r);
         }
     }
 }
