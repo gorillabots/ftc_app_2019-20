@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -11,12 +12,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class RevGyro
 {
+    Telemetry tele;
+
     BNO055IMU imu;
     BNO055IMU.Parameters parameters;
     Orientation orientation;
 
-    public RevGyro(HardwareMap hardwareMap)
+    public RevGyro(HardwareMap hardwareMap, Telemetry telemetry)
     {
+        tele = telemetry;
+
         parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;

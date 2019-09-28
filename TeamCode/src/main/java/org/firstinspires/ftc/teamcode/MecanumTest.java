@@ -13,7 +13,7 @@ public class MecanumTest extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        drive = new MecanumDrive(hardwareMap);
+        drive = new MecanumDrive(hardwareMap, telemetry);
 
         waitForStart();
 

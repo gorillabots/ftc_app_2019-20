@@ -15,8 +15,8 @@ public class MecanumDriverCentricTest extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        drive = new MecanumDrive(hardwareMap);
-        gyro = new RevGyro(hardwareMap);
+        drive = new MecanumDrive(hardwareMap, telemetry);
+        gyro = new RevGyro(hardwareMap, telemetry);
         gyro.resetAngle();
 
         waitForStart();
