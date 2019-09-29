@@ -26,9 +26,9 @@ public class MecanumDrive
     public void go(double x, double y, double r)
     {
         fl = -x + y - r;
-        fr = x - y - r;
+        fr = -x - y - r;
         bl = x + y - r;
-        br = -x - y - r;
+        br = x - y - r;
 
         mfl.setPower(fl);
         mfr.setPower(fr);
