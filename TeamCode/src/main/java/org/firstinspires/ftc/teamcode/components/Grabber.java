@@ -47,18 +47,18 @@ public class Grabber
     {
         if (intake)
         {
-            rollerB.setPower(1);
             rollerF.setPower(-1);
+            rollerB.setPower(1);
         }
         else
         {
-            rollerF.setPower(1);
-            rollerB.setPower(-1);
+            rollerF.setPower(0);
+            rollerB.setPower(0);
         }
     }
-    public void setIntakeOff()
+    public void setIntakeRelease()
     {
-        rollerF.setPower(0);
-        rollerB.setPower(0);
+        rollerF.setPower(1);
+        rollerB.setPower(-1);
     }
 }

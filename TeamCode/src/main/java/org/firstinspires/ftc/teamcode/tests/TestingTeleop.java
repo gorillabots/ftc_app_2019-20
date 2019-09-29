@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -39,10 +39,10 @@ public class TestingTeleop extends LinearOpMode {
                 grabber.setIntakeOn(true);
             }
             if (gamepad1.right_trigger > .5) {
-                grabber.setIntakeOff();
+                grabber.setIntakeOn(false);
             }
             if (gamepad1.y) {
-                grabber.setIntakeOn(false);
+                grabber.setIntakeRelease();
             }
             if (gamepad1.left_bumper) {
                 grabber.setGrabberCollect(true);
