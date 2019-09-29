@@ -12,7 +12,11 @@ public class Grabber
 
     CRServo rollerF;
     CRServo rollerB;
-    Servo rotate;
+    public Servo rotate;
+
+    public static double ROTATE_UP = 1;
+    public static double ROTATE_DOWN = .15;
+    public static double ROTATE_ALIGN = 0.23;
 
     public Grabber(HardwareMap hardwareMap, Telemetry telemetry)
     {
@@ -22,5 +26,39 @@ public class Grabber
         rollerB = hardwareMap.crservo.get("rollerB");
 
         rotate = hardwareMap.servo.get("rotate");
+    }
+
+    public void setGrabberCollect(boolean down)
+    {
+        if(!down)
+        {
+            rotate.setPosition(ROTATE_UP);
+        }
+        else
+        {
+            rotate.setPosition(ROTATE_DOWN);
+        }
+    }
+    public void setGrabberAlign()
+    {
+        rotate.setPosition(ROTATE_ALIGN);
+    }
+    public void setIntakeOn(boolean intake)
+    {
+        if (intake)
+        {
+            rollerB.setPower(1);
+            rollerF.setPower(-1);
+        }
+        else
+        {
+            rollerF.setPower(1);
+            rollerB.setPower(-1);
+        }
+    }
+    public void setIntakeOff()
+    {
+        rollerF.setPower(0);
+        rollerB.setPower(0);
     }
 }
