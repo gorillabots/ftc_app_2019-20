@@ -26,7 +26,7 @@ public class Teleop extends LinearOpMode {
         boolean doIt = false;
         boolean doItWatch = false;
 
-        int stage = 1;
+        int stage = 0;
         boolean switchStageWatch = false;
 
 
@@ -60,12 +60,12 @@ public class Teleop extends LinearOpMode {
             switch (stage)
             {
 
-                case 1: //normal: driving
+                case 0: //normal: driving
                     drive.go(x, y, r);
                     grabber.setIntakeOn(false);
                     grabber.setGrabberCollect(false);
                     doIt = false;
-                case 2: //collection
+                case 1: //collection
                     drive.go(x * .25, y * .25, r * .25);
 
                     grabber.setIntakeOn(doIt);
@@ -74,12 +74,12 @@ public class Teleop extends LinearOpMode {
                     } else {
                         grabber.setGrabberAlign();
                     }
-                case 3:  //normal: driving
+                case 2:  //normal: driving
                     drive.go(x, y, r);
                     grabber.setIntakeOn(false);
                     grabber.setGrabberCollect(false);
                     doIt = false;
-                case 4:  //releasing
+                case 3:  //releasing
                     drive.go(x * .5, y * .5, r * .5);
 
                     if (doIt) {
@@ -88,10 +88,9 @@ public class Teleop extends LinearOpMode {
                     } else {
                         grabber.setGrabberAlign();
                     }
-                case 5: //set back to stage 1
+                case 4: //set back to stage 1
                     stage = 1;
             }
         }
     }
 }
-
