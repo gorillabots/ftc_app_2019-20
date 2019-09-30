@@ -57,44 +57,41 @@ public class Teleop extends LinearOpMode {
 
             //BULK OF PROGRAM: STAGES 1-4 ↓
 
-            if (stage == 1){ //normal: driving
-                drive.go(x,y,r);
-                grabber.setIntakeOn(false);
-                grabber.setGrabberCollect(false);
-                doIt = false;
-            }
-            else if (stage == 2){ //collection
-                drive.go(x * .25,y * .25,r * .25);
+            switch (stage)
+            {
 
-                grabber.setIntakeOn(doIt);
-                if(doIt){
-                    grabber.setGrabberCollect(true);
-                }
-                else{
-                    grabber.setGrabberAlign();
-                }
-            }
-            else if (stage == 3){ //normal: driving
-                drive.go(x,y,r);
-                grabber.setIntakeOn(false);
-                grabber.setGrabberCollect(false);
-                doIt = false;
-            }
-            else if (stage == 4){ //releasing
-                drive.go(x * .5,y * .5,r * .5);
+                case 1: //normal: driving
+                    drive.go(x, y, r);
+                    grabber.setIntakeOn(false);
+                    grabber.setGrabberCollect(false);
+                    doIt = false;
+                case 2: //collection
+                    drive.go(x * .25, y * .25, r * .25);
 
-                if(doIt){
-                    grabber.setGrabberCollect(true);
-                    grabber.setIntakeOn(false); //backwards
-                }
-                else{
-                    grabber.setGrabberAlign();
-                }
-            }
-            else{ //set back to stage 1
-                stage = 1;
-            }
+                    grabber.setIntakeOn(doIt);
+                    if (doIt) {
+                        grabber.setGrabberCollect(true);
+                    } else {
+                        grabber.setGrabberAlign();
+                    }
+                case 3:  //normal: driving
+                    drive.go(x, y, r);
+                    grabber.setIntakeOn(false);
+                    grabber.setGrabberCollect(false);
+                    doIt = false;
+                case 4:  //releasing
+                    drive.go(x * .5, y * .5, r * .5);
 
+                    if (doIt) {
+                        grabber.setGrabberCollect(true);
+                        grabber.setIntakeOn(false); //backwards
+                    } else {
+                        grabber.setGrabberAlign();
+                    }
+                case 5: //set back to stage 1
+                    stage = 1;
+            }
         }
     }
 }
+
