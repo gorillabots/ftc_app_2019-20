@@ -45,26 +45,26 @@ public class Teleop extends LinearOpMode {
             }
             driveSlowWatch = gamepad1.b;
 
-            if (gamepad1.right_bumper && !doItWatch){
+            if (gamepad1.right_bumper && !doItWatch) {
                 doIt = !doIt;
             }
             doItWatch = gamepad1.right_bumper;
 
-            if (gamepad1.right_trigger > .5 && !switchStageWatch){
+            if (gamepad1.right_trigger > .5 && !switchStageWatch) {
                 stage += 1;
             }
             switchStageWatch = gamepad1.right_trigger > .5;
 
             //BULK OF PROGRAM: STAGES 1-4 ↓
 
-            switch (stage)
-            {
+            switch (stage) {
 
                 case 0: //normal: driving
                     drive.go(x, y, r);
                     grabber.setIntakeOn(false);
                     grabber.setGrabberCollect(false);
                     doIt = false;
+                    break;
                 case 1: //collection
                     drive.go(x * .25, y * .25, r * .25);
 
@@ -74,11 +74,13 @@ public class Teleop extends LinearOpMode {
                     } else {
                         grabber.setGrabberAlign();
                     }
+                    break;
                 case 2:  //normal: driving
                     drive.go(x, y, r);
                     grabber.setIntakeOn(false);
                     grabber.setGrabberCollect(false);
                     doIt = false;
+                    break;
                 case 3:  //releasing
                     drive.go(x * .5, y * .5, r * .5);
 
@@ -88,8 +90,10 @@ public class Teleop extends LinearOpMode {
                     } else {
                         grabber.setGrabberAlign();
                     }
+                    break;
                 case 4: //set back to stage 1
                     stage = 1;
+                    break;
             }
         }
     }
