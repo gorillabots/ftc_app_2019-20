@@ -16,7 +16,7 @@ public class Grabber
 
     public static double ROTATE_UP = 1;
     public static double ROTATE_DOWN = .15;
-    public static double ROTATE_ALIGN = 0.23;
+    public static double ROTATE_ALIGN = 0.3;
 
     public Grabber(HardwareMap hardwareMap, Telemetry telemetry)
     {

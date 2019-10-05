@@ -34,7 +34,7 @@ public class TestingTeleop extends LinearOpMode {
                 drive.go(x * .5, y * .5, r * .5);
             } else {
                 drive.go(x, y, r);
-        }
+            }
             if (gamepad1.right_bumper) {
                 grabber.setIntakeOn(true);
             }
