@@ -44,6 +44,21 @@ public class Teleop extends LinearOpMode {
             double y = gamepad1.left_stick_y;
             double r = gamepad1.right_stick_x;
 
+            // SET PERFECT DRIVE ↓
+
+            if(gamepad1.dpad_up){
+                drive.go(0,.1,0);
+            }
+            if(gamepad1.dpad_down){
+                drive.go(0,-.1,0);
+            }
+            if(gamepad1.dpad_right){
+                drive.go(.1,0,0);
+            }
+            if (gamepad1.dpad_left){
+                drive.go(-.1,0,0);
+            }
+
             // TOGGLES ↓
 
             if (gamepad1.b && !driveSlowWatch) {
@@ -69,27 +84,28 @@ public class Teleop extends LinearOpMode {
             backStageWatch = gamepad1.left_trigger > .5;
 
             telemetry.addData("stage:", stage);
-            //BULK OF PROGRAM: STAGES 1-4 ↓
+
+            //BULK OF PROGRAM: STAGES 0-3 ↓
 
             switch (stage) {
 
-                case 0: //normal: driving
-                    drive.go(x, y, r);
+                case -1: // for looping
+                    stage = 3;
+                    break;
+                case 0: // normal: drive to collect
+                    drive.go(x, y, r); // drive speed max
+
                     grabber.setIntakeOn(false);
                     grabber.setGrabberCollect(false);
-                    doIt = false;
+
+                    doIt = false; // prep for next stage ↓
                     collectStage = 0;
                     break;
                 case 1: //collection
-                    drive.go(x * .25, y * .25, r * .25);
-                    if (gamepad1.left_bumper) {
-                        collectStage = 1;
-                    }
-                    if (gamepad1.right_bumper || gamepad1.a) {
-                        collectStage = 0;
-                    }
+                    drive.go(x * .2, y * .2, r * .2); // drive speed 1/5
+
                     switch (collectStage) {
-                        case 0:
+                        case 0: //collecting
                             grabber.setIntakeOn(doIt);
                             if (doIt) {
                                 grabber.setGrabberCollect(true);
@@ -97,19 +113,30 @@ public class Teleop extends LinearOpMode {
                                 grabber.setGrabberAlign();
                             }
                             break;
-                        case 1:
+                        case 1: //if collected bad - need to release
                             grabber.setIntakeRelease();
                             break;
                     }
+
+                    if (gamepad1.right_bumper || gamepad1.a) { // re-collect if collected bad - collectStage = 0 default
+                        collectStage = 0;
+                    }
+
+                    if (gamepad1.left_bumper) { // if collected bad
+                        collectStage = 1;
+                    }
                     break;
-                case 2:  //normal: driving
-                    drive.go(x, y, r);
+                case 2:  //normal: transporting
+                    drive.go(x, y, r); // drive speed max
+
                     grabber.setIntakeOn(false);
                     grabber.setGrabberCollect(false);
+
                     releaseStage = 0;
                     break;
                 case 3:  //releasing
-                    drive.go(x * .5, y * .5, r * .5);
+                    drive.go(x * .3, y * .3, r * .3); // drive speed 3/10
+
                     switch (releaseStage) {
                         case 0:
                             grabber.setGrabberAlign();
@@ -126,7 +153,7 @@ public class Teleop extends LinearOpMode {
                             break;
                     }
                     break;
-                case 4: //set back to stage 0
+                case 4: //set back to stage 0 - loop
                     stage = 0;
                     break;
             }
