@@ -95,8 +95,8 @@ public class Teleop extends LinearOpMode {
                 case 0: // normal: drive to collect
                     drive.go(x, y, r); // drive speed max
 
-                    grabber.setIntakeOn(false);
-                    grabber.gotoRotCollect(false);
+                    grabber.intake(Grabber.INTAKE_HOLD);
+                    grabber.rotate(Grabber.ROTATE_UP);
 
                     doIt = false; // prep for next stage ↓
                     collectStage = 0;
@@ -106,15 +106,16 @@ public class Teleop extends LinearOpMode {
 
                     switch (collectStage) {
                         case 0: //collecting
-                            grabber.setIntakeOn(doIt);
                             if (doIt) {
-                                grabber.gotoRotCollect(true);
+                                grabber.rotate(Grabber.ROTATE_DOWN);
+                                grabber.intake(Grabber.INTAKE_IN);
                             } else {
-                                grabber.gotoRotAlign();
+                                grabber.rotate(Grabber.ROTATE_ALIGN);
+                                grabber.intake(Grabber.INTAKE_HOLD);
                             }
                             break;
                         case 1: //if collected bad - need to release
-                            grabber.gotoIntakeRelease();
+                            grabber.intake(Grabber.INTAKE_OUT);
                             break;
                     }
 
@@ -129,8 +130,8 @@ public class Teleop extends LinearOpMode {
                 case 2:  //normal: transporting
                     drive.go(x, y, r); // drive speed max
 
-                    grabber.setIntakeOn(false);
-                    grabber.gotoRotCollect(false);
+                    grabber.intake(Grabber.INTAKE_HOLD);
+                    grabber.rotate(Grabber.ROTATE_UP);
 
                     releaseStage = 0;
                     break;
@@ -139,14 +140,14 @@ public class Teleop extends LinearOpMode {
 
                     switch (releaseStage) {
                         case 0:
-                            grabber.gotoRotAlign();
+                            grabber.rotate(Grabber.ROTATE_ALIGN);
                             break;
                         case 1:
-                            grabber.gotoRotCollect(true);
-                            grabber.gotoIntakeRelease(); //backwards
+                            grabber.rotate(Grabber.ROTATE_DOWN);
+                            grabber.intake(Grabber.INTAKE_OUT); //backwards
                             break;
                         case 2:
-                            grabber.gotoRotCollect(false);
+                            grabber.rotate(Grabber.ROTATE_UP);
                             break;
                         case 3:
                             releaseStage = 0;

@@ -36,22 +36,22 @@ public class TestingTeleop extends LinearOpMode {
                 drive.go(x, y, r);
             }
             if (gamepad1.right_bumper) {
-                grabber.setIntakeOn(true);
+                grabber.intake(Grabber.INTAKE_IN);
             }
             if (gamepad1.right_trigger > .5) {
-                grabber.setIntakeOn(false);
+                grabber.intake(Grabber.INTAKE_HOLD);
             }
             if (gamepad1.y) {
-                grabber.gotoIntakeRelease();
+                grabber.intake(Grabber.INTAKE_HOLD);
             }
             if (gamepad1.left_bumper) {
-                grabber.gotoRotCollect(true);
+                grabber.rotate(Grabber.ROTATE_DOWN);
             }
             if (gamepad1.left_trigger > .5) {
-                grabber.gotoRotCollect(false);
+                grabber.rotate(Grabber.ROTATE_UP);
             }
             if (gamepad1.a) {
-                grabber.gotoRotAlign();
+                grabber.rotate(Grabber.ROTATE_ALIGN);
             }
 
         }

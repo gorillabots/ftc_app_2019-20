@@ -23,7 +23,7 @@ public class ServoTests extends LinearOpMode
 
         waitForStart();
 
-        grabber.setRotate(0.5);
+        grabber.rotate(0.5);
 
         while (opModeIsActive()) {
 
@@ -51,7 +51,7 @@ public class ServoTests extends LinearOpMode
                 position = 0;
             }
 
-            grabber.setRotate(position);
+            grabber.rotate(position);
 
             telemetry.addData("position", position);
             telemetry.update();
