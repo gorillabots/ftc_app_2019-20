@@ -15,7 +15,7 @@ public class Grabber
     private CRServo rollerB;
 
     public static final double ROTATE_UP = 1;
-    public static final double ROTATE_DOWN = .15;
+    public static final double ROTATE_DOWN = 0.15;
     public static final double ROTATE_ALIGN = 0.3;
 
     public static final double INTAKE_IN = 1;

@@ -7,13 +7,14 @@ import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
 
 @TeleOp(group = "main", name = "TeleOp")
-public class Teleop extends LinearOpMode {
-
+public class Teleop extends LinearOpMode
+{
     MecanumDrive drive;
     Grabber grabber;
 
     @Override
-    public void runOpMode() {
+    public void runOpMode()
+    {
 
         drive = new MecanumDrive(hardwareMap, telemetry);
         grabber = new Grabber(hardwareMap, telemetry);
@@ -36,7 +37,8 @@ public class Teleop extends LinearOpMode {
         boolean backStageWatch = false;
 
 
-        while (opModeIsActive()) {
+        while (opModeIsActive())
+        {
 
             // SET DRIVING STUFF ↓
 
@@ -87,7 +89,8 @@ public class Teleop extends LinearOpMode {
 
             //BULK OF PROGRAM: STAGES 0-3 ↓
 
-            switch (stage) {
+            switch (stage)
+            {
 
                 case -1: // for looping
                     stage = 3;
@@ -104,12 +107,16 @@ public class Teleop extends LinearOpMode {
                 case 1: //collection
                     drive.go(x * .2, y * .2, r * .2); // drive speed 1/5
 
-                    switch (collectStage) {
+                    switch (collectStage)
+                    {
                         case 0: //collecting
-                            if (doIt) {
+                            if (doIt)
+                            {
                                 grabber.rotate(Grabber.ROTATE_DOWN);
                                 grabber.intake(Grabber.INTAKE_IN);
-                            } else {
+                            }
+                            else
+                                {
                                 grabber.rotate(Grabber.ROTATE_ALIGN);
                                 grabber.intake(Grabber.INTAKE_HOLD);
                             }
@@ -119,11 +126,13 @@ public class Teleop extends LinearOpMode {
                             break;
                     }
 
-                    if (gamepad1.right_bumper || gamepad1.a) { // re-collect if collected bad - collectStage = 0 default
+                    if (gamepad1.right_bumper || gamepad1.a)
+                    { // re-collect if collected bad - collectStage = 0 default
                         collectStage = 0;
                     }
 
-                    if (gamepad1.left_bumper) { // if collected bad
+                    if (gamepad1.left_bumper)
+                    { // if collected bad
                         collectStage = 1;
                     }
                     break;
@@ -138,7 +147,8 @@ public class Teleop extends LinearOpMode {
                 case 3:  //releasing
                     drive.go(x * .3, y * .3, r * .3); // drive speed 3/10
 
-                    switch (releaseStage) {
+                    switch (releaseStage)
+                    {
                         case 0:
                             grabber.rotate(Grabber.ROTATE_ALIGN);
                             break;
