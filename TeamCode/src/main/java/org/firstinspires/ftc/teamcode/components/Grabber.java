@@ -8,15 +8,15 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Grabber
 {
-    Telemetry tele;
+    private Telemetry tele;
 
-    CRServo rollerF;
-    CRServo rollerB;
-    public Servo rotate;
+    private CRServo rollerF;
+    private CRServo rollerB;
+    private Servo rotate;
 
-    public static double ROTATE_UP = 1;
-    public static double ROTATE_DOWN = .15;
-    public static double ROTATE_ALIGN = 0.3;
+    private static final double ROTATE_UP = 1;
+    private static final double ROTATE_DOWN = .15;
+    private static final double ROTATE_ALIGN = 0.3;
 
     public Grabber(HardwareMap hardwareMap, Telemetry telemetry)
     {
@@ -28,21 +28,29 @@ public class Grabber
         rotate = hardwareMap.servo.get("rotate");
     }
 
-    public void setGrabberCollect(boolean down)
+    //TODO: Remove once ServoTests is removed
+    public void setRotate(double pos)
     {
-        if(!down)
-        {
-            rotate.setPosition(ROTATE_UP);
-        }
-        else
+        rotate.setPosition(pos);
+    }
+
+    public void gotoRotCollect(boolean down)
+    {
+        if(down)
         {
             rotate.setPosition(ROTATE_DOWN);
         }
+        else
+        {
+            rotate.setPosition(ROTATE_UP);
+        }
     }
-    public void setGrabberAlign()
+
+    public void gotoRotAlign()
     {
         rotate.setPosition(ROTATE_ALIGN);
     }
+
     public void setIntakeOn(boolean intake)
     {
         if (intake)
@@ -56,7 +64,8 @@ public class Grabber
             rollerB.setPower(0);
         }
     }
-    public void setIntakeRelease()
+
+    public void gotoIntakeRelease()
     {
         rollerF.setPower(1);
         rollerB.setPower(-1);

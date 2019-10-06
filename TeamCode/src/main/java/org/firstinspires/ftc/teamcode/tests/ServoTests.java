@@ -18,49 +18,43 @@ public class ServoTests extends LinearOpMode
 
         double position = 0.5;
 
-        boolean increase = false;
         boolean increaseWatch = false;
-
-        boolean decrease = false;
         boolean decreaseWatch = false;
 
         waitForStart();
 
+        grabber.setRotate(0.5);
+
         while (opModeIsActive()) {
 
-            grabber.rotate.setPosition(0.5);
-
-            while (opModeIsActive()) {
-
-                if (gamepad1.right_bumper && !increaseWatch) {
-                    position = position + .01;
-                }
-                increaseWatch = gamepad1.right_bumper;
-
-                if (gamepad1.left_bumper && !decreaseWatch) {
-                    position = position - .01;
-                }
-                decreaseWatch = gamepad1.left_bumper;
-
-                if (gamepad1.right_trigger > .5) {
-                    position = position + .1;
-                }
-                if (gamepad1.left_trigger > .5) {
-                    position = position - .1;
-                }
-
-                if (position > 1) {
-                    position = 1;
-                }
-                if (position < 0) {
-                    position = 0;
-                }
-
-                grabber.rotate.setPosition(position);
-
-                telemetry.addData("position", position);
-                telemetry.update();
+            if (gamepad1.right_bumper && !increaseWatch) {
+                position = position + .01;
             }
+            increaseWatch = gamepad1.right_bumper;
+
+            if (gamepad1.left_bumper && !decreaseWatch) {
+                position = position - .01;
+            }
+            decreaseWatch = gamepad1.left_bumper;
+
+            if (gamepad1.right_trigger > .5) {
+                position = position + .1;
+            }
+            if (gamepad1.left_trigger > .5) {
+                position = position - .1;
+            }
+
+            if (position > 1) {
+                position = 1;
+            }
+            if (position < 0) {
+                position = 0;
+            }
+
+            grabber.setRotate(position);
+
+            telemetry.addData("position", position);
+            telemetry.update();
         }
     }
 }

@@ -96,7 +96,7 @@ public class Teleop extends LinearOpMode {
                     drive.go(x, y, r); // drive speed max
 
                     grabber.setIntakeOn(false);
-                    grabber.setGrabberCollect(false);
+                    grabber.gotoRotCollect(false);
 
                     doIt = false; // prep for next stage ↓
                     collectStage = 0;
@@ -108,13 +108,13 @@ public class Teleop extends LinearOpMode {
                         case 0: //collecting
                             grabber.setIntakeOn(doIt);
                             if (doIt) {
-                                grabber.setGrabberCollect(true);
+                                grabber.gotoRotCollect(true);
                             } else {
-                                grabber.setGrabberAlign();
+                                grabber.gotoRotAlign();
                             }
                             break;
                         case 1: //if collected bad - need to release
-                            grabber.setIntakeRelease();
+                            grabber.gotoIntakeRelease();
                             break;
                     }
 
@@ -130,7 +130,7 @@ public class Teleop extends LinearOpMode {
                     drive.go(x, y, r); // drive speed max
 
                     grabber.setIntakeOn(false);
-                    grabber.setGrabberCollect(false);
+                    grabber.gotoRotCollect(false);
 
                     releaseStage = 0;
                     break;
@@ -139,14 +139,14 @@ public class Teleop extends LinearOpMode {
 
                     switch (releaseStage) {
                         case 0:
-                            grabber.setGrabberAlign();
+                            grabber.gotoRotAlign();
                             break;
                         case 1:
-                            grabber.setGrabberCollect(true);
-                            grabber.setIntakeRelease(); //backwards
+                            grabber.gotoRotCollect(true);
+                            grabber.gotoIntakeRelease(); //backwards
                             break;
                         case 2:
-                            grabber.setGrabberCollect(false);
+                            grabber.gotoRotCollect(false);
                             break;
                         case 3:
                             releaseStage = 0;

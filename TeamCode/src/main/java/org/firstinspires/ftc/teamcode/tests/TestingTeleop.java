@@ -42,16 +42,16 @@ public class TestingTeleop extends LinearOpMode {
                 grabber.setIntakeOn(false);
             }
             if (gamepad1.y) {
-                grabber.setIntakeRelease();
+                grabber.gotoIntakeRelease();
             }
             if (gamepad1.left_bumper) {
-                grabber.setGrabberCollect(true);
+                grabber.gotoRotCollect(true);
             }
             if (gamepad1.left_trigger > .5) {
-                grabber.setGrabberCollect(false);
+                grabber.gotoRotCollect(false);
             }
             if (gamepad1.a) {
-                grabber.setGrabberAlign();
+                grabber.gotoRotAlign();
             }
 
         }
