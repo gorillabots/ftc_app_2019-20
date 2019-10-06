@@ -62,21 +62,6 @@ public class TeleOpSimple extends LinearOpMode
                 switch(rotState)
                 {
                     case 0:
-                        break;
-                    case 1:
-                        rotState = 0;
-                        grabber.rotate(Grabber.ROTATE_UP);
-                        break;
-                    case 2:
-                        rotState = 1;
-                        grabber.rotate(Grabber.ROTATE_ALIGN);
-                }
-            }
-            else if(gamepad1.dpad_down && !downWatch)
-            {
-                switch(rotState)
-                {
-                    case 0:
                         rotState = 1;
                         grabber.rotate(Grabber.ROTATE_ALIGN);
                         break;
@@ -86,6 +71,21 @@ public class TeleOpSimple extends LinearOpMode
                         break;
                     case 2:
                         break;
+                }
+            }
+            else if(gamepad1.dpad_down && !downWatch)
+            {
+                switch(rotState)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        rotState = 0;
+                        grabber.rotate(Grabber.ROTATE_UP);
+                        break;
+                    case 2:
+                        rotState = 1;
+                        grabber.rotate(Grabber.ROTATE_ALIGN);
                 }
             }
             upWatch = gamepad1.dpad_up;

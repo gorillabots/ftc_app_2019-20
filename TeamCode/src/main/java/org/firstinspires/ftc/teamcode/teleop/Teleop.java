@@ -49,16 +49,16 @@ public class Teleop extends LinearOpMode
             // SET PERFECT DRIVE ↓
 
             if(gamepad1.dpad_up){
-                drive.go(0,.1,0);
+                drive.go(0,.15,0);
             }
             if(gamepad1.dpad_down){
-                drive.go(0,-.1,0);
+                drive.go(0,-.15,0);
             }
             if(gamepad1.dpad_right){
-                drive.go(.1,0,0);
+                drive.go(.15,0,0);
             }
             if (gamepad1.dpad_left){
-                drive.go(-.1,0,0);
+                drive.go(-.15,0,0);
             }
 
             // TOGGLES ↓
