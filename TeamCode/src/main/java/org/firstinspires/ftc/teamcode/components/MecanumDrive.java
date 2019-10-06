@@ -9,7 +9,7 @@ public class MecanumDrive
 {
     Telemetry tele;
 
-    DcMotor mfl, mfr, mbl, mbr;
+    private DcMotor mfl, mfr, mbl, mbr;
 
     public MecanumDrive(HardwareMap hardwareMap, Telemetry telemetry)
     {
@@ -21,7 +21,7 @@ public class MecanumDrive
         mbr = hardwareMap.dcMotor.get("mbr");
     }
 
-    double fl, fr, bl, br;
+    private double fl, fr, bl, br;
     
     public void go(double x, double y, double r)
     {
