@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
 
-@TeleOp(group = "teleop", name = "TestingTeleop")
+@TeleOp(group = "tests", name = "TestingTeleop")
 public class TestingTeleop extends LinearOpMode {
     MecanumDrive drive;
     Grabber grabber;
