@@ -22,9 +22,13 @@ public class AutoDrive
 
     public void driveCartesian(double x, double y, double dist)
     {
+        drive.resetDrivenDistance();
 
-
-        tele.addData("Gyro Angle", gyro.getAngle());
+        while(drive.getDrivenDistance() < dist)
+        {
+            drive.go(x, y, gyro.getAngle() / 100);
+            tele.addData("Gyro Angle", gyro.getAngle());
+            tele.update();
+        }
     }
-
 }

@@ -41,7 +41,7 @@ public class RevGyro
 
     public double getAngle()
     {
-        orientation = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-        return orientation.thirdAngle;
+        orientation = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        return orientation.firstAngle;
     }
 }

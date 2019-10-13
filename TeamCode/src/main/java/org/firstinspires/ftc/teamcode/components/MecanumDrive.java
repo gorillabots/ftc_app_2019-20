@@ -50,15 +50,23 @@ public class MecanumDrive
         tele.addData("obr", mbr.getCurrentPosition());
     }
 
-    //long
+    private int froffset = 0;
+    private int floffset = 0;
 
     public void resetDrivenDistance()
     {
-
+        froffset = mbr.getCurrentPosition() - mfl.getCurrentPosition();
+        floffset = mfr.getCurrentPosition() - mbl.getCurrentPosition();
     }
 
     public double getDrivenDistance()
     {
-        return 0;
+        double frdist = mbr.getCurrentPosition() - mfl.getCurrentPosition() - froffset;
+        double fldist = mfr.getCurrentPosition() - mbl.getCurrentPosition() - floffset;
+
+        tele.addData("frdist", frdist);
+        tele.addData("fldist", fldist);
+
+        return Math.sqrt(frdist*frdist + fldist*fldist);
     }
 }
