@@ -39,7 +39,7 @@ public class TeleOpSimple extends LinearOpMode
             speed = slowMode ? 0.2 : 1;
 
             double x = gamepad1.left_stick_x;
-            double y = gamepad1.left_stick_y;
+            double y = -gamepad1.left_stick_y;
             double r = gamepad1.right_stick_x;
 
             drive.go(x * speed, y * speed, r * speed);
@@ -90,6 +90,8 @@ public class TeleOpSimple extends LinearOpMode
             }
             upWatch = gamepad1.dpad_up;
             downWatch = gamepad1.dpad_down;
+
+            telemetry.update();
         }
     }
 }

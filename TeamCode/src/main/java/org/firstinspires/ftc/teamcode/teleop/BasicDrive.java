@@ -20,7 +20,7 @@ public class BasicDrive extends LinearOpMode
         while(opModeIsActive())
         {
             double x = gamepad1.left_stick_x;
-            double y = gamepad1.left_stick_y;
+            double y = -gamepad1.left_stick_y;
             double r = gamepad1.right_stick_x;
 
             drive.go(x, y, r);
