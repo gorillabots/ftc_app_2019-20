@@ -12,11 +12,11 @@ public class Hooks
     Servo hookR;
     Servo hookL;
 
-    public static final double HOOKR_DOWN = 1;
+    public static final double HOOKR_DOWN = .87;
     public static final double HOOKR_UP = 0;
 
-    public static final double HOOKL_DOWN = 1;
-    public static final double HOOKL_UP = 0;
+    public static final double HOOKL_DOWN = 0;
+    public static final double HOOKL_UP = .72;
 
     public Hooks(HardwareMap hardwareMap, Telemetry telemetry)
     {

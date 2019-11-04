@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.tests;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.Grabber;
-import org.firstinspires.ftc.teamcode.components.MecanumDrive;
 
 @TeleOp(group = "tests", name = "TestingTeleop")
 public class TestingTeleop extends GorillabotsCentral {
@@ -48,7 +46,7 @@ public class TestingTeleop extends GorillabotsCentral {
                 grabber.rotate(Grabber.ROTATE_DOWN);
             }
             if (gamepad1.left_trigger > .5) {
-                grabber.rotate(Grabber.ROTATE_UP);
+                grabber.rotate(Grabber.ROTATE_45);
             }
             if (gamepad1.a) {
                 grabber.rotate(Grabber.ROTATE_ALIGN);

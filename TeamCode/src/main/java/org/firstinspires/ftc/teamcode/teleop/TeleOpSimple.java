@@ -81,7 +81,7 @@ public class TeleOpSimple extends LinearOpMode
                         break;
                     case 1:
                         rotState = 0;
-                        grabber.rotate(Grabber.ROTATE_UP);
+                        grabber.rotate(Grabber.ROTATE_45);
                         break;
                     case 2:
                         rotState = 1;

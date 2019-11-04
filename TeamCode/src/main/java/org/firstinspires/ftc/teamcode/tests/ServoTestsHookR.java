@@ -1,29 +1,26 @@
 package org.firstinspires.ftc.teamcode.tests;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.components.Grabber;
-import org.firstinspires.ftc.teamcode.components.MecanumDrive;
+import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 
-@TeleOp(group="tests", name="ServoTest")
-public class ServoTests extends LinearOpMode
+@TeleOp(group="tests", name="ServoTestHookR")
+public class ServoTestsHookR extends GorillabotsCentral
 {
-    Grabber grabber;
 
     @Override
     public void runOpMode() {
-
-        grabber = new Grabber(hardwareMap, telemetry);
 
         double position = 0.5;
 
         boolean increaseWatch = false;
         boolean decreaseWatch = false;
 
+        initializeComponents();
+
         waitForStart();
 
-        grabber.rotate(0.5);
+        hooks.hookR(0.5);
 
         while (opModeIsActive()) {
 
@@ -51,7 +48,7 @@ public class ServoTests extends LinearOpMode
                 position = 0;
             }
 
-            grabber.rotate(position);
+            hooks.hookR(position);
 
             telemetry.addData("position", position);
             telemetry.update();

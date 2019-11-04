@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
 
-@TeleOp(group = "main", name = "TeleOp")
-public class Teleop extends LinearOpMode
+@TeleOp(group = "main", name = "ooooTeleOp")
+public class OLDTeleop extends LinearOpMode
 {
     MecanumDrive drive;
     Grabber grabber;
@@ -99,7 +99,7 @@ public class Teleop extends LinearOpMode
                     drive.go(x, y, r); // drive speed max
 
                     grabber.intake(Grabber.INTAKE_HOLD);
-                    grabber.rotate(Grabber.ROTATE_UP);
+                    grabber.rotate(Grabber.ROTATE_45);
 
                     doIt = false; // prep for next stage ↓
                     collectStage = 0;
@@ -140,7 +140,7 @@ public class Teleop extends LinearOpMode
                     drive.go(x, y, r); // drive speed max
 
                     grabber.intake(Grabber.INTAKE_HOLD);
-                    grabber.rotate(Grabber.ROTATE_UP);
+                    grabber.rotate(Grabber.ROTATE_45);
 
                     releaseStage = 0;
                     break;
@@ -157,7 +157,7 @@ public class Teleop extends LinearOpMode
                             grabber.intake(Grabber.INTAKE_OUT); //backwards
                             break;
                         case 2:
-                            grabber.rotate(Grabber.ROTATE_UP);
+                            grabber.rotate(Grabber.ROTATE_45);
                             break;
                         case 3:
                             releaseStage = 0;

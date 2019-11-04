@@ -27,7 +27,6 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     Servos:
     0: rotate
     1: rollerF
-    2: rollerB
     3: hookR
 
     I2C:
@@ -43,7 +42,8 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     3: mbl
 
     Servos:
-    5: hookL
+    5: rollerB
+    4: hookL
 
     Digital Channels:
 
