@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 
-@TeleOp(group = "main", name = "TeleopLancaster")
+@TeleOp(group = "AAAAAAAAAA", name = "TeleopLancaster")
 public class TeleopLancaster extends GorillabotsCentral
 {
 

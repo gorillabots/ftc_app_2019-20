@@ -12,6 +12,18 @@ public class blueAuto29 extends GorillabotsCentral
     {
         initializeComponents();
 
- getSkystonePos();
+        int pos = getSkystonePos();
+
+        switch (pos)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
+
+
     }
 }
