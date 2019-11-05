@@ -16,7 +16,7 @@ public class Grabber
     private CRServo rollerB;
     private DcMotor lift;
 
-    public static final double ROTATE_45 = .46;
+    public static final double ROTATE_45 = .42;
     public static final double ROTATE_DOWN = 0.2;
     public static final double ROTATE_ALIGN = 0.33;
     public static final double ROTATE_INIT = .74;

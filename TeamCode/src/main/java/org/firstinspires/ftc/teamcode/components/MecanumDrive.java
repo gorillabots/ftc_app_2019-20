@@ -9,7 +9,7 @@ public class MecanumDrive
 {
     Telemetry tele;
 
-    private DcMotor mfl, mfr, mbl, mbr;
+    public DcMotor mfl, mfr, mbl, mbr;
 
     public MecanumDrive(HardwareMap hardwareMap, Telemetry telemetry)
     {
