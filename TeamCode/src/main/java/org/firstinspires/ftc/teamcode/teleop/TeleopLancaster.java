@@ -6,12 +6,10 @@ import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 
 @TeleOp(group = "AAAAAAAAAA", name = "TeleopLancaster")
-public class TeleopLancaster extends GorillabotsCentral
-{
+public class TeleopLancaster extends GorillabotsCentral {
 
     @Override
-    public void runOpMode()
-    {
+    public void runOpMode() {
 
         initializeComponents();
 
@@ -23,8 +21,8 @@ public class TeleopLancaster extends GorillabotsCentral
         boolean doIt = false;
         boolean doItWatch = false;
 
-        boolean hookDown = false;
-        boolean hookDownWatch = false;
+        boolean endgame = false;
+        boolean endgameWatch = false;
 
         int collectStage = 0;
 
@@ -38,42 +36,29 @@ public class TeleopLancaster extends GorillabotsCentral
 
         boolean manualOverride = false;
 
+        double x = 0;
+        double y = 0;
+        double r = 0;
 
-        while (opModeIsActive())
-        {
+
+        while (opModeIsActive()) {
 
             // SET DRIVING STUFF ↓
 
-            double x = gamepad1.left_stick_x;
-            double y = -gamepad1.left_stick_y;
-            double r = gamepad1.right_stick_x;
+            x = gamepad1.left_stick_x;
+            y = -gamepad1.left_stick_y;
+            r = gamepad1.right_stick_x;
 
-            // SET PERFECT DRIVE ↓
-
-            if(gamepad1.dpad_up){
-                drive.go(0,.15,0);
-            }
-            if(gamepad1.dpad_down){
-                drive.go(0,-.15,0);
-            }
-            if(gamepad1.dpad_right){
-                drive.go(.15,0,0);
-            }
-            if (gamepad1.dpad_left){
-                drive.go(-.15,0,0);
-            }
-
-            // CONTROLLER 2 ↓
+            // ACCESSORIES
 
             grabber.lift(-gamepad2.left_stick_y);
-            hooks.setDown(hookDown);
 
             // TOGGLES ↓
 
-            if (gamepad2.left_bumper && !hookDownWatch) {
-                hookDown = !hookDown;
+            if ((gamepad1.dpad_left) || (gamepad1.dpad_right) && !endgameWatch) {
+                endgame = !endgame;
             }
-            hookDownWatch = gamepad2.left_bumper;
+            endgameWatch = (gamepad1.dpad_left) || (gamepad1.dpad_right);
 
             if (gamepad1.b && !driveSlowWatch) {
                 driveSlow = !driveSlow;
@@ -100,104 +85,101 @@ public class TeleopLancaster extends GorillabotsCentral
             telemetry.addData("stage:", stage);
 
             //BULK OF PROGRAM: STAGES 0-3 ↓
+            if (endgame) {
+                grabber.rotate(Grabber.ROTATE_INIT);
+                drive.go(x * .4, y * .4, r * .4);
 
-            switch (stage)
-            {
+                if(gamepad1.dpad_down)
+                    hooks.setDown(true);
+                if (gamepad1.dpad_up)
+                    hooks.setDown(false);
+            } else {
+                switch (stage) {
 
-                case -1: // for looping
-                    stage = 3;
-                    break;
-                case 0: // normal: drive to collect
-                    drive.go(x, y, r); // drive speed max
+                    case -1: // for looping
+                        stage = 3;
+                        break;
+                    case 0: // normal: drive to collect
+                        drive.go(x, y, r); // drive speed max
 
-                    grabber.intake(Grabber.INTAKE_HOLD);
-                    grabber.rotate(Grabber.ROTATE_45);
+                        grabber.intake(Grabber.INTAKE_HOLD);
+                        grabber.rotate(Grabber.ROTATE_45);
 
-                    doIt = false; // prep for next stage ↓
-                    collectStage = 0;
-                    break;
-                case 1: //collection
-                    drive.go(x * .2, y * .2, r * .2); // drive speed 1/5
-
-                    switch (collectStage)
-                    {
-                        case 0: //collecting
-                            if (doIt)
-                            {
-                                grabber.rotate(Grabber.ROTATE_DOWN);
-                                grabber.intake(Grabber.INTAKE_IN);
-                            }
-                            else
-                                {
-                                grabber.rotate(Grabber.ROTATE_ALIGN);
-                                grabber.intake(Grabber.INTAKE_HOLD);
-                            }
-                            break;
-                        case 1: //if collected bad - need to release
-                            grabber.intake(Grabber.INTAKE_OUT);
-                            break;
-                    }
-
-                    if (gamepad1.right_bumper || gamepad1.a)
-                    { // re-collect if collected bad - collectStage = 0 default
+                        doIt = false; // prep for next stage ↓
                         collectStage = 0;
-                    }
+                        break;
+                    case 1: //collection
+                        drive.go(x * .2, y * .2, r * .2); // drive speed 1/5
 
-                    if (gamepad1.left_bumper)
-                    { // if collected bad
-                        collectStage = 1;
-                    }
-                    break;
-                case 2:  //normal: transporting
-                    drive.go(x, y, r); // drive speed max
-
-                    grabber.intake(Grabber.INTAKE_HOLD);
-                    grabber.rotate(Grabber.ROTATE_45);
-
-                    releasing = false;
-                    break;
-                case 3:  //releasing
-                    drive.go(x * .3, y * .3, r * .3); // drive speed 3/10
-                    grabber.rotate(Grabber.ROTATE_DOWN);
-
-                    if(releasing)
-                    {
-                        grabber.intake(Grabber.INTAKE_OUT);
-                        grabber.lift(.4);
-                        releasing = false;
-                        while(!releasing)
-                        {
-                            releasing = gamepad1.right_trigger > .5;
+                        switch (collectStage) {
+                            case 0: //collecting
+                                if (doIt) {
+                                    grabber.rotate(Grabber.ROTATE_DOWN);
+                                    grabber.intake(Grabber.INTAKE_IN);
+                                } else {
+                                    grabber.rotate(Grabber.ROTATE_ALIGN);
+                                    grabber.intake(Grabber.INTAKE_HOLD);
+                                }
+                                break;
+                            case 1: //if collected bad - need to release
+                                grabber.intake(Grabber.INTAKE_OUT);
+                                break;
                         }
+
+                        if (gamepad1.right_bumper || gamepad1.a) { // re-collect if collected bad - collectStage = 0 default
+                            collectStage = 0;
+                        }
+
+                        if (gamepad1.left_bumper) { // if collected bad
+                            collectStage = 1;
+                        }
+                        break;
+                    case 2:  //normal: transporting
+                        drive.go(x, y, r); // drive speed max
+
+                        grabber.intake(Grabber.INTAKE_HOLD);
+                        grabber.rotate(Grabber.ROTATE_45);
+
                         releasing = false;
-                    }
-                    else
-                        {
+                        break;
+                    case 3:  //releasing
+                        drive.go(x * .3, y * .3, r * .3); // drive speed 3/10
+                        grabber.rotate(Grabber.ROTATE_DOWN);
+
+                        if (releasing) {
+                            grabber.intake(Grabber.INTAKE_OUT);
+                            grabber.lift(.4);
+                            releasing = false;
+                            while (!releasing) {
+                                releasing = gamepad1.right_trigger > .5;
+                            }
+                            releasing = false;
+                        } else {
                             grabber.intake(Grabber.INTAKE_HOLD);
                         }
 
-                    break;
+                        break;
 
-                case 4: //bring lift down
-                    grabber.rotate(Grabber.ROTATE_INIT);
+                    case 4: //bring lift down
+                        grabber.rotate(Grabber.ROTATE_INIT);
 
-                    sleep(100);
+                        sleep(100);
 
-                    while(opModeIsActive() && sensors.liftBot.getState() && !manualOverride)
-                    {
-                        grabber.lift(-1);
+                        while (opModeIsActive() && sensors.liftBot.getState() && !manualOverride) {
+                            grabber.lift(-1);
 
-                        manualOverride = (gamepad1.a || gamepad2.a);
+                            manualOverride = (gamepad1.a || gamepad2.a);
 
-                        drive.go(gamepad1.left_stick_x,-gamepad1.left_stick_y,gamepad1.right_stick_x);
-                    }
-                    stage += 1;
-                    break;
-                case 5:
-                    stage = 0;
-                    break;
+                            drive.go(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
+                        }
+                        stage += 1;
+                        break;
+                    case 5:
+                        stage = 0;
+                        break;
+                }
+                telemetry.update();
             }
-            telemetry.update();
         }
     }
 }
