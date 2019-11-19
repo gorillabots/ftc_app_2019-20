@@ -56,4 +56,7 @@ public class Grabber
     {
         lift.setPower(direction);
     }
+    public void setLiftPos(double pos){
+
+    }
 }
