@@ -29,7 +29,7 @@ public class AutoDrive
     public void driveCartesian(double x, double y, double dist)
     {
         drive.resetDrivenDistance();
-        dist = dist * COUNTS_PER_INCH;
+        dist *= COUNTS_PER_INCH;
         while(drive.getDrivenDistance() < dist)
         {
             drive.go(x, y, gyro.getAngle() / 100);

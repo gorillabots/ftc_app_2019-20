@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.components.Hooks;
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
 import org.firstinspires.ftc.teamcode.components.RevGyro;
 import org.firstinspires.ftc.teamcode.components.Sensors;
+import org.firstinspires.ftc.teamcode.components.Slicer;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     public Hooks hooks;
     public Sensors sensors;
     public MecanumDrive drive;
+    public Slicer slicer;
     public RevGyro gyro;
 
     /*
@@ -79,6 +81,10 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         sensors = new Sensors(hardwareMap,telemetry);
 
         drive = new MecanumDrive(hardwareMap,telemetry);
+
+        slicer = new Slicer(hardwareMap,telemetry);
+
+        slicer.setIn(true);
 
         gyro = new RevGyro(hardwareMap,telemetry);
 

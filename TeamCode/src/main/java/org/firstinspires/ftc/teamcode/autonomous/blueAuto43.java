@@ -14,8 +14,8 @@ public class blueAuto43 extends GorillabotsCentral
     {
         initializeComponents();
 
-        int pos = getSkystonePos();
-
+        //int pos = getSkystonePos();
+        int pos = 2;
         MoveUntilEncoder(5,0,.3);
 
         switch (pos)
@@ -62,13 +62,13 @@ public class blueAuto43 extends GorillabotsCentral
         MoveUntilEncoder(70,180,.5);
         MoveUntilTime(500,180,.4);
 
-        switch(pos){
+        switch(pos) {
             case 1:
-                MoveUntilEncoder(20,0,.3);
+                MoveUntilEncoder(20, 0, .3);
                 TurnAbsolute(0);
                 break;
             case 2:
-                MoveUntilEncoder(14,0,.3);
+                MoveUntilEncoder(14, 0, .3);
                 TurnAbsolute(0);
                 break;
             case 3:
@@ -76,6 +76,19 @@ public class blueAuto43 extends GorillabotsCentral
                 break;
         }
 
+        grabber.intake(Grabber.INTAKE_IN);
+        grabber.rotate(Grabber.ROTATE_DOWN);
+        sleep(500);
+        grabber.intake(Grabber.INTAKE_HOLD);
+        grabber.rotate(Grabber.ROTATE_45);
+        TurnAbsolute(-90);
+        MoveUntilEncoder(70, 0,.5);
+        MoveUntilTime(500,0,.5);
+        grabber.rotate(Grabber.ROTATE_DOWN);
+        grabber.intake(Grabber.INTAKE_OUT);
+        sleep(1000);
+        grabber.rotate(Grabber.ROTATE_45);
+        grabber.intake(Grabber.INTAKE_HOLD);
 
     }
 }

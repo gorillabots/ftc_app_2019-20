@@ -50,8 +50,10 @@ public class TeleopLancaster extends GorillabotsCentral {
             r = gamepad1.right_stick_x;
 
             // ACCESSORIES
-
-            grabber.lift(-gamepad2.left_stick_y);
+            double liftPower = -gamepad2.left_stick_y + .05;
+            if (liftPower > 1)
+                liftPower = 1;
+            grabber.lift(liftPower);
 
             // TOGGLES ↓
 
@@ -93,7 +95,9 @@ public class TeleopLancaster extends GorillabotsCentral {
                     hooks.setDown(true);
                 if (gamepad1.dpad_up)
                     hooks.setDown(false);
+                slicer.setIn(false);
             } else {
+                slicer.setIn(true);
                 switch (stage) {
 
                     case -1: // for looping
@@ -109,7 +113,7 @@ public class TeleopLancaster extends GorillabotsCentral {
                         collectStage = 0;
                         break;
                     case 1: //collection
-                        drive.go(x * .2, y * .2, r * .2); // drive speed 1/5
+                        drive.go(x * .25, y * .25, r * .25); // drive speed 1/4
 
                         switch (collectStage) {
                             case 0: //collecting
