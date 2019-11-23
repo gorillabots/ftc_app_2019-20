@@ -13,7 +13,7 @@ public class turnTest extends GorillabotsCentral
 
         waitForStart();
 
-        TurnAbsolute(90);
+        TurnAbsolute(90,.2,.5);
 
         sleep(1000);
     }

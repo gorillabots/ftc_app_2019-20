@@ -15,7 +15,7 @@ public class driveEncTest extends GorillabotsCentral
 
         waitForStart();
 
-        MoveUntilEncoder(10,0,.5);
+        MoveUntilEncoder(300,135,.5);
 
         sleep(1000);
     }

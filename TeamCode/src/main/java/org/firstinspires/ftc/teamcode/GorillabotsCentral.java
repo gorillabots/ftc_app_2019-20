@@ -148,6 +148,54 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         stopMotors();
     }
 
+    public void MoveUntilEncoder2(double distance, double degree, double power) {
+
+        drive.mfr.setDirection(DcMotor.Direction.REVERSE);
+        drive.mfl.setDirection(DcMotor.Direction.FORWARD);
+        drive.mbr.setDirection(DcMotor.Direction.REVERSE);
+        drive.mbl.setDirection(DcMotor.Direction.FORWARD);
+
+        double degreeRad = Math.toRadians(degree - degreeCorrection);
+        double cs = Math.cos(degreeRad);
+        double sn = Math.sin(degreeRad);
+
+        setDriveEncoderOn(true);
+
+        int rightFrontStartPos = drive.mfr.getCurrentPosition();
+        int rightRearStartPos = drive.mbr.getCurrentPosition();
+        int leftFrontStartPos = drive.mfl.getCurrentPosition();
+        int leftRearStartPos = drive.mbl.getCurrentPosition();
+
+        int target = (int) (distance * COUNTS_PER_INCH);
+
+        int rightFrontEndPos = rightFrontStartPos + (int) (target * (-sn + cs));
+        int leftFrontEndPos = leftFrontStartPos + (int) (target * (sn + cs));
+        int rightRearEndPos = rightRearStartPos + (int) (target * (sn + cs));
+        int leftRearEndPos = leftRearStartPos + (int) (target * (-sn + cs));
+
+        double pwr = power;
+
+        double rightFrontPower = pwr * (-sn + cs);
+        double leftFrontPower = pwr * (sn + cs);
+        double rightRearPower = pwr * (sn + cs);
+        double leftRearPower = pwr * (-sn + cs);
+
+        drive.mfr.setPower(rightFrontPower);
+        drive.mfl.setPower(leftFrontPower);
+        drive.mbr.setPower(rightRearPower);
+        drive.mbl.setPower(leftRearPower);
+
+        drive.mfr.setTargetPosition(rightFrontEndPos);
+        drive.mfl.setTargetPosition(leftFrontEndPos);
+        drive.mbr.setTargetPosition(rightRearEndPos);
+        drive.mbl.setTargetPosition(leftRearEndPos);
+
+        while (drive.mfr.isBusy() && opModeIsActive()) {
+        }
+        /*|| mfl.isBusy() || mbr.isBusy() || mbl.isBusy())*/
+        stopMotors();
+    }
+
     public void MoveUntilTime(long timeMilli, double direction, double power) {
         setDriveEncoderOn(false);
         MoveTo(direction, power);
@@ -202,7 +250,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         }
     }
 
-    public void TurnAbsolute(double TargetDegree) {
+    public void TurnAbsolute(double TargetDegree,double min,double max) {
         // clock is negative; anti-clock positive degree
         // rotate range is (-90,90)
 
@@ -221,7 +269,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         double MaxPower = 0.5;
         double minPower = 0.2;
 
-        double correctionDegree = 0;
+        double correctionDegree = 5;
         double beginDegree;
         double currentDegree;
 
