@@ -14,13 +14,14 @@ import org.firstinspires.ftc.teamcode.components.AutoDrive;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Hooks;
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
+import org.firstinspires.ftc.teamcode.components.Parker;
 import org.firstinspires.ftc.teamcode.components.RevGyro;
 import org.firstinspires.ftc.teamcode.components.Sensors;
-import org.firstinspires.ftc.teamcode.components.Slicer;
 
 import java.util.List;
 
 import static java.lang.Math.abs;
+import static org.firstinspires.ftc.teamcode.components.Parker.PARKER_OUT;
 
 public abstract class GorillabotsCentral extends LinearOpMode {
 
@@ -29,8 +30,9 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     public Hooks hooks;
     public Sensors sensors;
     public MecanumDrive drive;
-    public Slicer slicer;
+    public Parker parker;
     public RevGyro gyro;
+    public ElapsedTime timer;
 
     /*
     HUB # 1
@@ -43,11 +45,13 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     0: rotate
     1: rollerF
     3: hookR
+    5: parker
 
     I2C:
-
     0: imu
     1: rangeF
+    2: rangeB
+    3: rangeR
 
     HUB # 2
 
@@ -60,13 +64,44 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     5: rollerB
     4: hookL
 
-    Digital Channels:
+    I2C:
+    1: rangeL
 
+    Digital Channels:
     3: liftBot
      */
 
     public void initializeComponents()
     {
+        timer = new ElapsedTime();
+
+        //ADrive = new AutoDrive(hardwareMap,telemetry);
+
+        grabber = new Grabber(hardwareMap,telemetry);
+
+        grabber.rotate(Grabber.ROTATE_INIT);
+        grabber.intake(Grabber.INTAKE_HOLD);
+
+        hooks = new Hooks(hardwareMap,telemetry);
+
+        hooks.setDown(false);
+
+        sensors = new Sensors(hardwareMap,telemetry);
+
+        drive = new MecanumDrive(hardwareMap,telemetry);
+
+        parker = new Parker(hardwareMap,telemetry);
+
+        //gyro = new RevGyro(hardwareMap,telemetry);
+
+        telemetry.addData("done:","init");
+        telemetry.update();
+    }
+
+    public void initializeComponentsAutonomous()
+    {
+        timer = new ElapsedTime();
+
         ADrive = new AutoDrive(hardwareMap,telemetry);
 
         grabber = new Grabber(hardwareMap,telemetry);
@@ -82,20 +117,17 @@ public abstract class GorillabotsCentral extends LinearOpMode {
 
         drive = new MecanumDrive(hardwareMap,telemetry);
 
-        slicer = new Slicer(hardwareMap,telemetry);
-
-        slicer.setIn(true);
+        parker = new Parker(hardwareMap,telemetry);
 
         gyro = new RevGyro(hardwareMap,telemetry);
 
         telemetry.addData("done:","init");
         telemetry.update();
     }
-
     public static final int degreeCorrection = 180;
-
-    public static final double COUNTS_PER_MOTOR_REV = 160;     //12.5:1
-    public static final double DRIVE_GEAR_REDUCTION = 2.0;     // This is < 1.0 if geared UP
+//160
+    public static final double COUNTS_PER_MOTOR_REV = 384;     //12.5:1
+    public static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     public static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     public static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -190,13 +222,80 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         drive.mbr.setTargetPosition(rightRearEndPos);
         drive.mbl.setTargetPosition(leftRearEndPos);
 
-        while (drive.mfr.isBusy() && opModeIsActive()) {
+        while ((drive.mfr.isBusy() || drive.mfl.isBusy()) && opModeIsActive()) {
         }
         /*|| mfl.isBusy() || mbr.isBusy() || mbl.isBusy())*/
         stopMotors();
     }
 
+    public void MoveUntilRangeF(double distance,double direction,double power){
+        setDriveEncoderOn(false);
+        setMotorsBackwards();
+        MoveTo(direction, power);
+        while ((sensors.getDistanceF() > distance) && opModeIsActive()){
+            MoveTo(direction,power);
+            telemetry.addData("d" ,sensors.getDistanceF());
+            telemetry.update();
+        }
+        stopMotors();
+    }
+
+    public void MoveUntilRangeB(double distance,double direction,double power){
+        setDriveEncoderOn(false);
+        setMotorsBackwards();
+        MoveTo(direction, power);
+        while ((sensors.getDistanceB() > distance) && opModeIsActive()){
+            MoveTo(direction,power);
+            telemetry.addData("d" ,sensors.getDistanceB());
+            telemetry.update();
+        }
+        stopMotors();
+    }
+
+    public void MoveUntilRangeRG(double distance,double direction,double power, double gyroT){
+        setDriveEncoderOn(false);
+        setMotorsBackwards();
+        MoveTo(direction, power);
+        while (abs(sensors.getDistanceR() - distance) > .2 && opModeIsActive()){
+            MoveTowR(direction, power,(gyro.getAngle() - gyroT) / 50);
+            telemetry.addData("d" ,sensors.getDistanceR());
+            telemetry.update();
+        }
+        stopMotors();
+    }
+
+    public void MoveUntilEncoderGYRO(double distance, double direction, double power, double gyroT)
+    {
+        setMotorsBackwards();
+        setDriveEncoderOn(false);
+        int initPos = drive.mfr.getCurrentPosition();
+        MoveTo(direction,power);
+        distance = distance * 1000 / 34;
+        while ((abs(drive.mfr.getCurrentPosition() - initPos) < abs(distance)) && opModeIsActive()){
+            telemetry.addData("getCurPos", drive.mfr.getCurrentPosition());
+            telemetry.addData("s", drive.mfr.getCurrentPosition() - initPos);
+            telemetry.update();
+            MoveTowR(direction, power,(gyro.getAngle() - gyroT) / 50);
+        }
+        stopMotors();
+    }
+    public void MoveUntilEncoderGYROfl(double distance, double direction, double power, double gyroT)
+    {
+        setMotorsBackwards();
+        setDriveEncoderOn(false);
+        int initPos = drive.mfl.getCurrentPosition();
+        MoveTo(direction,power);
+        distance = distance * 1000 / 34;
+        while ((abs(drive.mfl.getCurrentPosition() - initPos) < abs(distance)) && opModeIsActive()){
+            telemetry.addData("getCurPos", drive.mfl.getCurrentPosition());
+            telemetry.addData("s", drive.mfl.getCurrentPosition() - initPos);
+            telemetry.update();
+            MoveTowR(direction, power,(gyro.getAngle() - gyroT) / 50);
+        }
+        stopMotors();
+    }
     public void MoveUntilTime(long timeMilli, double direction, double power) {
+        setMotorsBackwards();
         setDriveEncoderOn(false);
         MoveTo(direction, power);
         sleep(timeMilli);
@@ -217,12 +316,34 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         drive.mbl.setPower(bl);
         drive.mbr.setPower(br);
     }
+    public void MoveTowR(double degree, double power, double r) {
+        double degreeRad = Math.toRadians(degree - degreeCorrection); // Convert to radians
+        double cs = Math.cos(degreeRad);
+        double sn = Math.sin(degreeRad);
+
+        double fr = Range.clip((power * (-sn + cs)) + r,-1,1);
+        double fl = Range.clip((power * (sn + cs)) - r,-1,1);
+        double br = Range.clip((power * (sn + cs)) + r,-1,1);
+        double bl = Range.clip((power * (-sn + cs)) - r,-1,1);
+
+
+        drive.mfl.setPower(fl);
+        drive.mfr.setPower(fr);
+        drive.mbl.setPower(bl);
+        drive.mbr.setPower(br);
+    }
     public void stopMotors()
     {
         drive.mfr.setPower(0);
         drive.mfl.setPower(0);
         drive.mbr.setPower(0);
         drive.mbl.setPower(0);
+    }
+    public void setMotorsBackwards(){
+        drive.mfr.setDirection(DcMotor.Direction.REVERSE);
+        drive.mfl.setDirection(DcMotor.Direction.FORWARD);
+        drive.mbr.setDirection(DcMotor.Direction.REVERSE);
+        drive.mbl.setDirection(DcMotor.Direction.FORWARD);
     }
 
     public void setDriveEncoderOn(boolean on) {
@@ -254,10 +375,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         // clock is negative; anti-clock positive degree
         // rotate range is (-90,90)
 
-        drive.mfr.setDirection(DcMotor.Direction.REVERSE);
-        drive.mfl.setDirection(DcMotor.Direction.FORWARD);
-        drive.mbr.setDirection(DcMotor.Direction.REVERSE);
-        drive.mbl.setDirection(DcMotor.Direction.FORWARD);
+        setMotorsBackwards();
 
         if (TargetDegree > 180) {
             TargetDegree = 180;
@@ -342,7 +460,38 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         telemetry.update();
     }
 
+    public void setLiftPos(double pos){
+        grabber.isEncoderModeLift(true);
 
+        int start = grabber.lift.getCurrentPosition();
+        int end = start + (int) pos;
+
+        grabber.lift(Grabber.LIFT_GOINUP);
+
+        grabber.lift.setTargetPosition(end);
+        timer.reset();
+        timer.startTime();
+        while (grabber.lift.isBusy() && opModeIsActive() && timer.seconds() < 3) {
+
+        }
+        grabber.lift(0);
+        grabber.isEncoderModeLift(false);
+    }
+    public void setLiftDown()
+    {
+        grabber.isEncoderModeLift(false);
+
+        grabber.lift(-.5);
+
+        timer.reset();
+        timer.startTime();
+
+        while (opModeIsActive() && sensors.liftBot.getState() && timer.seconds() < 3) {
+
+        }
+        grabber.lift(0);
+
+    }
 
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
@@ -377,7 +526,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
     }
 
-    public int getSkystonePos()
+    public int getSkystonePosBlue()
     {
         initVuforia();
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
@@ -459,7 +608,10 @@ public abstract class GorillabotsCentral extends LinearOpMode {
 
                 }
 
-
+                telemetry.addData("rangeF", sensors.getDistanceF());
+                telemetry.addData("rangeB", sensors.getDistanceB());
+                telemetry.addData("rangeR", sensors.getDistanceR());
+                telemetry.addData("rangeL", sensors.getDistanceL());
                 telemetry.addData("position", position);
                 telemetry.update();
             }
@@ -468,6 +620,119 @@ public abstract class GorillabotsCentral extends LinearOpMode {
             tfod.shutdown();
         }
         return position;
+    }
+    public int getSkystonePosRed()
+    {
+        initVuforia();
+        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+            initTfod();
+        } else {
+            telemetry.addData("Sorry!", "This device is not compatible with TFOD");
+        }
+        if (tfod != null) {
+            tfod.activate();
+        }
+
+        int position = 2;
+        if (!isStarted() && !isStopRequested()) {
+            /** Activate Tensor Flow Object Detection. */
+            if (tfod != null) {
+                tfod.activate();
+            }
+
+            while (!isStarted() && !isStopRequested()) {
+                if (tfod != null) {
+                    // getUpdatedRecognitions() will return null if no new information is available since
+                    // the last time that call was made.
+                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+
+                    if (updatedRecognitions != null) {
+                        telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        // step through the list of recognitions and display boundary info.
+                        int i = 0;
+                        String Lable0 = "";
+                        String Lable1 = "";
+                        String Lable2 = "";
+                        double left0 = 0;
+                        double left1 = 0;
+                        double left2 = 0;
+
+                        for (Recognition recognition : updatedRecognitions) {
+                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                    recognition.getLeft(), recognition.getTop());
+                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                    recognition.getRight(), recognition.getBottom());
+                            if (i == 0){
+                                Lable0 = recognition.getLabel();
+                                left0 = recognition.getLeft();
+                            }
+                            if (i == 1){
+                                Lable1 = recognition.getLabel();
+                                left1 = recognition.getLeft();
+                            }
+                            if (i == 2){
+                                Lable2 = recognition.getLabel();
+                                left2 = recognition.getLeft();
+                            }
+                            i += 1;
+                        }
+                        if (updatedRecognitions.size() == 2)
+                        {
+                            if (Lable0 == "Skystone" && (left0 < left1) || (Lable1 == "Skystone" && (left1 < left0))) {
+                                position = 2;
+                            }
+                            else if (Lable0 == "Stone" && Lable1 == "Stone"){
+                                position = 1;
+                            }
+                            else {
+                                position = 3;
+                            }
+                        }
+                        else if (updatedRecognitions.size() == 1){
+                            if(Lable0 == "Skystone"){
+                                position = 2; //GUESS
+                            }
+                            else{
+                                position = 1; //INFERENCE
+                            }
+                        }
+                        telemetry.update();
+                    }
+
+
+                }
+
+                telemetry.addData("rangeF", sensors.getDistanceF());
+                telemetry.addData("rangeB", sensors.getDistanceB());
+                telemetry.addData("rangeR", sensors.getDistanceR());
+                telemetry.addData("rangeL", sensors.getDistanceL());
+                telemetry.addData("position", position);
+                telemetry.update();
+            }
+        }
+        if (tfod != null) {
+            tfod.shutdown();
+        }
+        return position;
+    }
+
+    public void setParkerPos(int pos) {
+        parker.setParkerEncoder(true);
+
+        int start = parker.parker.getCurrentPosition();
+        int end = start - pos;
+
+        parker.parkerPow(Parker.PARKER_OUT);
+
+        parker.parker.setTargetPosition(end);
+        timer.reset();
+        timer.startTime();
+        while (parker.parker.isBusy() && opModeIsActive()) {
+
+        }
+        parker.parkerPow(0);
+        parker.setParkerEncoder(false);
     }
 
 

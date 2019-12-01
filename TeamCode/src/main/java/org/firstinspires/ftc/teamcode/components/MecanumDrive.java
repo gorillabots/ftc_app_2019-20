@@ -19,6 +19,11 @@ public class MecanumDrive
         mfr = hardwareMap.dcMotor.get("mfr");
         mbl = hardwareMap.dcMotor.get("mbl");
         mbr = hardwareMap.dcMotor.get("mbr");
+
+        mfr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        mfl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        mbr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        mbl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     private double fl, fr, bl, br;

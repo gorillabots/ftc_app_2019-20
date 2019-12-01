@@ -8,17 +8,35 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Sensors
 {
     public DigitalChannel liftBot;
     public Rev2mDistanceSensor rangeF;
+    public Rev2mDistanceSensor rangeB;
+    public Rev2mDistanceSensor rangeL;
+    public Rev2mDistanceSensor rangeR;
 
     public Sensors(HardwareMap hardwareMap, Telemetry telemetry)
     {
         liftBot = hardwareMap.get(DigitalChannel.class,"liftBot");
         liftBot.setMode(DigitalChannel.Mode.INPUT);
         rangeF = hardwareMap.get(Rev2mDistanceSensor.class, "rangeF");
+        rangeB = hardwareMap.get(Rev2mDistanceSensor.class, "rangeB");
+        rangeR = hardwareMap.get(Rev2mDistanceSensor.class, "rangeR");
+        rangeL = hardwareMap.get(Rev2mDistanceSensor.class, "rangeL");
     }
-
+    public double getDistanceF(){
+        return rangeF.getDistance(DistanceUnit.INCH);
+    }
+    public double getDistanceB(){
+        return rangeB.getDistance(DistanceUnit.INCH);
+    }
+    public double getDistanceR(){
+        return rangeR.getDistance(DistanceUnit.INCH);
+    }
+    public double getDistanceL(){
+        return rangeL.getDistance(DistanceUnit.INCH);
+    }
 }

@@ -95,9 +95,9 @@ public class TeleopLancaster extends GorillabotsCentral {
                     hooks.setDown(true);
                 if (gamepad1.dpad_up)
                     hooks.setDown(false);
-                slicer.setIn(false);
+
             } else {
-                slicer.setIn(true);
+
                 switch (stage) {
 
                     case -1: // for looping
