@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.components.MecanumDrive;
 import org.firstinspires.ftc.teamcode.components.Parker;
 import org.firstinspires.ftc.teamcode.components.RevGyro;
 import org.firstinspires.ftc.teamcode.components.Sensors;
+import org.firstinspires.ftc.teamcode.components.VuforiaKeyManager;
 
 import java.util.List;
 
@@ -497,8 +498,6 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
 
-    private static final String VUFORIA_KEY =
-            "AYIGi3P/////AAABmd1Nj8xVEE6BhnBHFrK7oIOGQxw7Er/V7JSoIDSl3S0XufhegO7yGWO4lksg+LUfRS/4Y5Fr52cpo4/Gnk/GO8NoF65yAkqU5ng+wgwDeKP/ZDHbU1HSGEDfTA0qlMGezmRSBUCupCT8LiIhHUMwd3Ir3CbL2/FXPnncSXkm/1EGha3uJe1/nuFmEZVgHpmcPsvN0r0nsxXjsSsSRyrrdhYNth9Ubfw1OTJR0RdqO84vSHMmJeDBmy2Jbf6r/hGlb1qLSgnyeCStuPOiizlBWRnL4BBd/gggOwG2gM+VpfqEgTT3D1uFiQ6qY1sU1e+hX4cXRlATKeFgv0FgCXWw39nx24rH7PkHVJ6c6OFCNib6";
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
 
@@ -508,7 +507,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
          */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.vuforiaLicenseKey = VuforiaKeyManager.getVuforiaKey(hardwareMap, telemetry, "vuforiakey.txt");
         parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
 
         //  Instantiate the Vuforia engine
