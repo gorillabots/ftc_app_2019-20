@@ -604,7 +604,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
                         }
                         else if (updatedRecognitions.size() == 1){
                             if(Lable0 == "Skystone"){
-                                position = 2; //GUESS
+                                position = 1; //GUESS
                             }
                             else{
                                 position = 3; //INFERENCE
