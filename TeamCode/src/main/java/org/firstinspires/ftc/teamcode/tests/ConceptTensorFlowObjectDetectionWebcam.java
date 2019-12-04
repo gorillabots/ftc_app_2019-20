@@ -38,8 +38,10 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.components.VuforiaKeyManager;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This 2019-2020 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -70,8 +72,6 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    private static final String VUFORIA_KEY =
-            "AYIGi3P/////AAABmd1Nj8xVEE6BhnBHFrK7oIOGQxw7Er/V7JSoIDSl3S0XufhegO7yGWO4lksg+LUfRS/4Y5Fr52cpo4/Gnk/GO8NoF65yAkqU5ng+wgwDeKP/ZDHbU1HSGEDfTA0qlMGezmRSBUCupCT8LiIhHUMwd3Ir3CbL2/FXPnncSXkm/1EGha3uJe1/nuFmEZVgHpmcPsvN0r0nsxXjsSsSRyrrdhYNth9Ubfw1OTJR0RdqO84vSHMmJeDBmy2Jbf6r/hGlb1qLSgnyeCStuPOiizlBWRnL4BBd/gggOwG2gM+VpfqEgTT3D1uFiQ6qY1sU1e+hX4cXRlATKeFgv0FgCXWw39nx24rH7PkHVJ6c6OFCNib6";
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
@@ -121,10 +121,10 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
                       // step through the list of recognitions and display boundary info.
                       int i = 0;
                       for (Recognition recognition : updatedRecognitions) {
-                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                        telemetry.addData(String.format(Locale.ENGLISH, "label (%d)", i), recognition.getLabel());
+                        telemetry.addData(String.format(Locale.ENGLISH, "  left,top (%d)", i), "%.03f , %.03f",
                                 recognition.getLeft(), recognition.getTop());
-                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                        telemetry.addData(String.format(Locale.ENGLISH, "  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
                       }
                       telemetry.update();
@@ -148,7 +148,7 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
          */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.vuforiaLicenseKey = VuforiaKeyManager.getVuforiaKey(hardwareMap, telemetry, "vuforiakey.txt");;
         parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
 
         //  Instantiate the Vuforia engine
