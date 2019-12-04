@@ -20,6 +20,7 @@ import org.firstinspires.ftc.teamcode.components.Sensors;
 import org.firstinspires.ftc.teamcode.components.VuforiaKeyManager;
 
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Math.abs;
 import static org.firstinspires.ftc.teamcode.components.Parker.PARKER_OUT;
@@ -562,10 +563,10 @@ public abstract class GorillabotsCentral extends LinearOpMode {
                         double left2 = 0;
 
                         for (Recognition recognition : updatedRecognitions) {
-                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                            telemetry.addData(String.format(Locale.ENGLISH, "label (%d)", i), recognition.getLabel());
+                            telemetry.addData(String.format(Locale.ENGLISH, "  left,top (%d)", i), "%.03f , %.03f",
                                     recognition.getLeft(), recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                            telemetry.addData(String.format(Locale.ENGLISH, "  right,bottom (%d)", i), "%.03f , %.03f",
                                     recognition.getRight(), recognition.getBottom());
                             if (i == 0){
                                 Lable0 = recognition.getLabel();
@@ -657,10 +658,10 @@ public abstract class GorillabotsCentral extends LinearOpMode {
                         double left2 = 0;
 
                         for (Recognition recognition : updatedRecognitions) {
-                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                            telemetry.addData(String.format(Locale.ENGLISH, "label (%d)", i), recognition.getLabel());
+                            telemetry.addData(String.format(Locale.ENGLISH, "  left,top (%d)", i), "%.03f , %.03f",
                                     recognition.getLeft(), recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                            telemetry.addData(String.format(Locale.ENGLISH, "  right,bottom (%d)", i), "%.03f , %.03f",
                                     recognition.getRight(), recognition.getBottom());
                             if (i == 0){
                                 Lable0 = recognition.getLabel();
