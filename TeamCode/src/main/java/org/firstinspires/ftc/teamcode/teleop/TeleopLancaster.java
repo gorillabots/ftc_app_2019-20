@@ -40,7 +40,6 @@ public class TeleopLancaster extends GorillabotsCentral {
         double y = 0;
         double r = 0;
 
-
         while (opModeIsActive()) {
 
             // SET DRIVING STUFF ↓

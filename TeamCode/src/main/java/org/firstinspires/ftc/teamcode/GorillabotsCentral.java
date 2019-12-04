@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.components.AutoDrive;
+import org.firstinspires.ftc.teamcode.components.Capstone;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Hooks;
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
@@ -32,6 +33,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     public MecanumDrive drive;
     public Parker parker;
     public RevGyro gyro;
+    public Capstone capstone;
     public ElapsedTime timer;
 
     /*
@@ -92,6 +94,8 @@ public abstract class GorillabotsCentral extends LinearOpMode {
 
         parker = new Parker(hardwareMap,telemetry);
 
+        capstone = new Capstone(hardwareMap,telemetry);
+
         //gyro = new RevGyro(hardwareMap,telemetry);
 
         telemetry.addData("done:","init");
@@ -118,6 +122,10 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         drive = new MecanumDrive(hardwareMap,telemetry);
 
         parker = new Parker(hardwareMap,telemetry);
+
+        capstone = new Capstone(hardwareMap,telemetry);
+
+        capstone.capstone(Capstone.CAPSTONE_INIT);
 
         gyro = new RevGyro(hardwareMap,telemetry);
 
