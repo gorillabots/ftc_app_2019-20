@@ -26,6 +26,8 @@ public class VuforiaKeyManager
             InputStream is = am.open(name);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String key = br.readLine();
+            br.close();
+            is.close();
             return key;
         }
         catch(IOException e)
