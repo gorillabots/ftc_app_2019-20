@@ -24,9 +24,11 @@ public class VuforiaKeyManager
         try
         {
             InputStream is = am.open(name);
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
             String key = br.readLine();
             br.close();
+            isr.close();
             is.close();
             return key;
         }
