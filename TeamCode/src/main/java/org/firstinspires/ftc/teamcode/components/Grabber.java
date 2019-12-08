@@ -20,7 +20,7 @@ public class Grabber
 
 
 
-    public static final double ROTATE_45 = .66;
+    public static final double ROTATE_45 = .55;
     public static final double ROTATE_DOWN = 0.37;
     public static final double ROTATE_ALIGN = 0.46;
     public static final double ROTATE_INIT = .96;
