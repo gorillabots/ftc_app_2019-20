@@ -22,19 +22,19 @@ public class redAuto43 extends GorillabotsCentral {
             case 1:
                 MoveUntilEncoderGYRO(5, 0, .3, 0);
                 MoveUntilEncoderGYRO(28.5, 270, .6, 0);
-                MoveUntilRangeF(9, 0, .3);
+                MoveUntilRangeF(10, 0, .3);//9
                 TurnAbsolute(-15, .2, .5);
                 break;
             case 2:
                 MoveUntilEncoderGYRO(5, 0, .3, 0);
                 MoveUntilEncoderGYRO(21, 270, .3, 0);
-                MoveUntilRangeF(9.5, 0, .3);
+                MoveUntilRangeF(10, 0, .3);//9.5
                 TurnAbsolute(-15, .2, .5);
                 break;
             case 3:
                 MoveUntilEncoderGYRO(5, 0, .3, 0);
                 MoveUntilEncoderGYRO(13, 270, .3, 0);
-                MoveUntilRangeF(9.5, 0, .3);
+                MoveUntilRangeF(10, 0, .3);//9.5
                 TurnAbsolute(-15, .2, .5);
                 break;
         }
@@ -82,9 +82,9 @@ public class redAuto43 extends GorillabotsCentral {
                 grabber.rotate(Grabber.ROTATE_INIT);
                 TurnAbsolute(0, .2, .5);
                 MoveUntilTime(500, 270, .5);
-                MoveUntilRangeF(8, 0, .2);
+                MoveUntilRangeF(9, 0, .2);
                 TurnAbsolute(29, .2, .5);
-                MoveUntilRangeF(8, 0, .3);
+                MoveUntilRangeF(8.5, 0, .3);
                 grabber.rotate(Grabber.ROTATE_ALIGN);
                 MoveUntilEncoderGYRO(3, -30, .4, 30);
                 grabber.rotate(Grabber.ROTATE_DOWN);
@@ -99,7 +99,7 @@ public class redAuto43 extends GorillabotsCentral {
                 //MoveUntilEncoderGYRO(7.5,90,.3,-83);
                 //TurnAbsolute(0,.2,.5);
                 TurnAbsolute(6, .2, .5);
-                MoveUntilRangeF(8.5, 0, .3);
+                MoveUntilRangeF(9, 0, .3);
                 grabber.rotate(Grabber.ROTATE_DOWN);
                 sleep(1000);
                 break;
@@ -109,7 +109,7 @@ public class redAuto43 extends GorillabotsCentral {
                 grabber.intake(Grabber.INTAKE_IN);
                 grabber.rotate(Grabber.ROTATE_INIT);
                 TurnAbsolute(-6, .2, .5);
-                MoveUntilRangeF(8, 0, .3);
+                MoveUntilRangeF(9, 0, .3);
                 grabber.rotate(Grabber.ROTATE_DOWN);
                 sleep(1000);
                 break;
