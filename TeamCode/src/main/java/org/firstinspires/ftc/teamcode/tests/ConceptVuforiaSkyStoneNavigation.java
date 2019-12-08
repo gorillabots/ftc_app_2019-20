@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode.tests;
 
 import android.content.res.AssetManager;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -83,6 +84,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * is explained below.
  */
 
+@Disabled
 @TeleOp(group ="test", name="Vuforia Nav Sample")
 public class ConceptVuforiaSkyStoneNavigation extends LinearOpMode
 {

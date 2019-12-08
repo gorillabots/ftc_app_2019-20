@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.AutoDrive;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 
+@Disabled
 @TeleOp(group = "test", name = "driveEncTest")
 public class driveEncTest extends GorillabotsCentral {
     public void runOpMode() {

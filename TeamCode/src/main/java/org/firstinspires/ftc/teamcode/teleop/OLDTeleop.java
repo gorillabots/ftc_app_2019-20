@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
 
-@TeleOp(group = "main", name = "ooooTeleOp")
 @Disabled
+@TeleOp(group = "main", name = "ooooTeleOp")
 public class OLDTeleop extends LinearOpMode
 {
     MecanumDrive drive;

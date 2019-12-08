@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GorillabotsCentral;
@@ -185,7 +186,7 @@ public class TeleopRochester extends GorillabotsCentral {
                         grabber.intake(Grabber.INTAKE_OUT);
                         grabber.lift(.4);
                         releasing = false;
-                        while (!releasing) {
+                        while (!releasing && opModeIsActive()) {
                             releasing = gamepad1.right_trigger > .5;
                         }
                         releasing = false;

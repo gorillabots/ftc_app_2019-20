@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.AutoDrive;
 import org.firstinspires.ftc.teamcode.components.Parker;
 
+@Disabled
 @Autonomous(group="test", name="AutoTesting")
 public class AutoTesting extends GorillabotsCentral
 {
