@@ -21,6 +21,9 @@ public class blueAuto43 extends GorillabotsCentral
         grabber.rotate(Grabber.ROTATE_INIT);
         grabber.intake(Grabber.INTAKE_IN);
         //ADrive.driveCartesian(.3,.3,50);
+
+
+
         switch (pos)
         {
             case 1:
@@ -47,11 +50,6 @@ public class blueAuto43 extends GorillabotsCentral
         sleep(1500);
         grabber.intake(Grabber.INTAKE_HOLD);
         grabber.rotate(Grabber.ROTATE_45);
-
-        if(!opModeIsActive())
-        {
-            return;
-        }
 
         MoveUntilEncoder(5,180,.3);
         TurnAbsolute(-90,.2,.5);
