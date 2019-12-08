@@ -37,12 +37,18 @@ public class redAuto43 extends GorillabotsCentral {
                 MoveUntilRangeF(9.5, 0, .3);
                 TurnAbsolute(-15, .2, .5);
                 break;
-
         }
+
         grabber.rotate(Grabber.ROTATE_DOWN);
         sleep(1500);
         grabber.intake(Grabber.INTAKE_HOLD);
         grabber.rotate(Grabber.ROTATE_45);
+
+        if(!opModeIsActive())
+        {
+            return;
+        }
+
         MoveUntilEncoder(2, 180, .3);
         TurnAbsolute(90, .2, .5);
 

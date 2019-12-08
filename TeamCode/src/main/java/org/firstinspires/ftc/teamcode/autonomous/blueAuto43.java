@@ -47,6 +47,12 @@ public class blueAuto43 extends GorillabotsCentral
         sleep(1500);
         grabber.intake(Grabber.INTAKE_HOLD);
         grabber.rotate(Grabber.ROTATE_45);
+
+        if(!opModeIsActive())
+        {
+            return;
+        }
+
         MoveUntilEncoder(5,180,.3);
         TurnAbsolute(-90,.2,.5);
         switch (pos){
