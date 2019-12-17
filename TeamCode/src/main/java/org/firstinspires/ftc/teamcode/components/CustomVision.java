@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.components;
 
+import android.graphics.Bitmap;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.vuforia.Image;
 import com.vuforia.PIXEL_FORMAT;
@@ -35,7 +37,7 @@ public class CustomVision
         vuforia.setFrameQueueCapacity(1);
     }
 
-    public Image getImage()
+    public Bitmap getImage()
     {
         VuforiaLocalizer.CloseableFrame frame = null;
 
@@ -49,24 +51,10 @@ public class CustomVision
             return null;
         }
 
-        Image rgb = null;
-
-        long numImages = frame.getNumImages();
-
-        for (int i = 0; i < numImages; i++)
-        {
-            tele.addData("format" + i, frame.getImage(i).getFormat());
-
-            if (frame.getImage(i).getFormat() == PIXEL_FORMAT.RGB565)
-            {
-
-                rgb = frame.getImage(i);
-                break;
-            }
-        }
+        Bitmap bmp = vuforia.convertFrameToBitmap(frame);
 
         frame.close();
 
-        return rgb;
+        return bmp;
     }
 }

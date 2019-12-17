@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.tests;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.vuforia.Image;
 
 import org.firstinspires.ftc.teamcode.components.CustomVision;
-
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
 
 @Autonomous(name="CustomVisionTest", group="tests")
 public class CustomVisionTest extends LinearOpMode
@@ -18,73 +17,64 @@ public class CustomVisionTest extends LinearOpMode
 
         waitForStart();
 
-        int i = 0;
         double fps = 0;
 
-        long reftime = System.currentTimeMillis();
+        int i = 0;
         int refi = 0;
 
-        int[][][] arr = null;
+        long time = System.currentTimeMillis();
+        long reftime = time;
+
+        Bitmap bmp = vision.getImage();
+        int width = bmp.getWidth();
+        int height = bmp.getHeight();
 
         while(opModeIsActive())
         {
             i++;
-            Image img = vision.getImage();
-            int width = img.getWidth();
-            int height = img.getHeight();
-            int stride = img.getStride();
-            int bytesperpixel = stride / width;
-
-            int wstride = 10;
-            int hstride = 10;
-
-            int size = height * stride;
-
-            ByteBuffer imgb = img.getPixels();
-
-            if(arr == null)
-            {
-                arr = new int[height / hstride][width / wstride][3];
-            }
+            bmp = vision.getImage();
 
             long sumr = 0;
             long sumg = 0;
             long sumb = 0;
 
-            for(int y = 0; y < height / hstride; y++)
+            long num = (width * height / 100);
+
+            for(int x = 0; x < width; x += 10)
             {
-                for(int x = 0; x < width / wstride; x++)
+                for (int y = 0; y < height; y += 10)
                 {
-                    int addr = (y*hstride) * stride + (width*wstride);
+                    int color = bmp.getPixel(x, y);
 
-                    byte byte1 = imgb.get(addr);
-                    byte byte2 = imgb.get(addr + 1);
-
-                    int r = byte1 & 0xF8 >> 3;
-                    int g = byte1 & 0x07 << 5 + byte2 & 0xE0 >> 5;
-                    int b = byte2 & 0x1F;
-
-                    sumr += r;
-                    sumb += b;
-                    sumg += g;
+                    sumr += Color.red(color);
+                    sumg += Color.green(color);
+                    sumb += Color.blue(color);
                 }
             }
 
-            if(System.currentTimeMillis() > reftime + 1000)
+            int r = Color.red(bmp.getPixel(0, 0));
+            int g = Color.green(bmp.getPixel(0, 0));
+            int b = Color.blue(bmp.getPixel(0, 0));
+
+            time = System.currentTimeMillis();
+
+            if(time > reftime + 1000)
             {
-                fps = (i - refi);
+                fps = (i - refi) / ((time - reftime) / 1000d);
                 refi = i;
-                reftime = System.currentTimeMillis();
+                reftime = time;
             }
 
             telemetry.addData("i", i);
             telemetry.addData("fps", fps);
             telemetry.addData("width", width);
             telemetry.addData("height", height);
-            telemetry.addData("bytes per pixel", bytesperpixel);
-            telemetry.addData("sumr", sumr);
-            telemetry.addData("sumg", sumg);
-            telemetry.addData("sumb", sumb);
+            telemetry.addData("r", r);
+            telemetry.addData("g", g);
+            telemetry.addData("b", b);
+            telemetry.addData("sumr", sumr / (double) num);
+            telemetry.addData("sumg", sumg / (double) num);
+            telemetry.addData("sumb", sumb / (double) num);
             telemetry.update();
         }
     }
