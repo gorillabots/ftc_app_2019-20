@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Robot type="FirstInspires-FTC">
+    <LynxUsbDevice name="Expansion Hub Portal 1" serialNumber="DQ2EWZFT" parentModuleAddress="1">
+        <LynxModule name="Expansion Hub 1" port="1">
+            <Motor name="parker" port="0" />
+            <Motor name="lift" port="1" />
+            <Motor name="mfl" port="2" />
+            <Motor name="mbl" port="3" />
+            <Servo name="hookL" port="4" />
+            <ContinuousRotationServo name="rollerF" port="5" />
+            <DigitalDevice name="liftBot" port="3" />
+            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+            <REV_VL53L0X_RANGE_SENSOR name="rangeL" port="0" bus="1" />
+        </LynxModule>
+        <LynxModule name="Expansion Hub 2" port="2">
+            <Motor name="mfr" port="0" />
+            <Motor name="mbr" port="1" />
+            <Servo name="rotate" port="0" />
+            <ContinuousRotationServo name="rollerB" port="1" />
+            <Servo name="capstone" port="2" />
+            <Servo name="hookR" port="3" />
+            <Servo name="slicer" port="5" />
+            <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
+            <REV_VL53L0X_RANGE_SENSOR name="rangeF" port="0" bus="1" />
+            <REV_VL53L0X_RANGE_SENSOR name="rangeB" port="0" bus="2" />
+            <REV_VL53L0X_RANGE_SENSOR name="rangeR" port="0" bus="3" />
+        </LynxModule>
+    </LynxUsbDevice>
+    <Webcam name="Webcam 1" serialNumber="04A47D90" />
+</Robot>
