@@ -20,6 +20,8 @@ public class CustomVision
     VuforiaLocalizer vuforia;
     VuforiaLocalizer.Parameters params;
 
+    final boolean USE_WEBCAM = true;
+
     public CustomVision(HardwareMap hardwareMap, Telemetry telemetry)
     {
         tele = telemetry;
@@ -27,9 +29,17 @@ public class CustomVision
         params = new VuforiaLocalizer.Parameters();
 
         params.vuforiaLicenseKey = VuforiaKeyManager.getVuforiaKey(hardwareMap, tele, "vuforiakey.txt");
-        //params.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        params.cameraMonitorViewIdParent = cameraMonitorViewId;
+
+        if(USE_WEBCAM)
+        {
+            params.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        }
+        else
+        {
+            int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+            params.cameraMonitorViewIdParent = cameraMonitorViewId;
+        }
+
 
         vuforia = ClassFactory.getInstance().createVuforia(params);
 

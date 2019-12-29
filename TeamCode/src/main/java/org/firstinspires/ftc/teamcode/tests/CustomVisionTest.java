@@ -2,18 +2,24 @@ package org.firstinspires.ftc.teamcode.tests;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Environment;
+import android.provider.MediaStore;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.components.CustomVision;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 @Autonomous(name="CustomVisionTest", group="tests")
 public class CustomVisionTest extends LinearOpMode
 {
     public void runOpMode()
     {
-        CustomVision vision = new CustomVision(hardwareMap, telemetry);
+        final CustomVision vision = new CustomVision(hardwareMap, telemetry);
 
         waitForStart();
 
@@ -29,10 +35,30 @@ public class CustomVisionTest extends LinearOpMode
         int width = bmp.getWidth();
         int height = bmp.getHeight();
 
+        boolean lastA = false;
+
         while(opModeIsActive())
         {
             i++;
             bmp = vision.getImage();
+
+            if(gamepad1.a && !lastA)
+            {
+                File path = Environment.getExternalStorageDirectory();
+                String file = "pics/" + i + ".png";
+                File dest = new File(path, file);
+
+                try (FileOutputStream out = new FileOutputStream(dest))
+                {
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+                    // PNG is a lossless format, the compression factor (100) is ignored
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            lastA = gamepad1.a;
 
             long sumr = 0;
             long sumg = 0;
