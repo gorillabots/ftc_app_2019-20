@@ -37,6 +37,34 @@ public class CustomVisionTest extends LinearOpMode
 
         boolean lastA = false;
 
+        final int L_LEFT = 0;
+        final int L_RIGHT = 180;
+        final int L_TOP = 135;
+        final int L_BOTTOM = 205;
+        
+        final int R_LEFT = 210;
+        final int R_RIGHT = 390;
+        final int R_TOP = 140;
+        final int R_BOTTOM = 220;
+
+        final int L_XINC = 5;
+        final int L_YINC = 5;
+        final int L_XYINC = L_XINC * L_YINC;
+
+        final int L_WIDTH = L_RIGHT - L_LEFT;
+        final int L_HEIGHT = L_BOTTOM - L_TOP;
+        final int L_SIZE = L_WIDTH * L_HEIGHT;
+        final int L_SCANSIZE = L_SIZE / L_XYINC;
+
+        final int R_XINC = 5;
+        final int R_YINC = 5;
+        final int R_XYINC = R_XINC * R_YINC;
+
+        final int R_WIDTH = R_RIGHT - R_LEFT;
+        final int R_HEIGHT = R_BOTTOM - R_TOP;
+        final int R_SIZE = R_WIDTH * R_HEIGHT;
+        final int R_SCANSIZE = R_SIZE / R_XYINC;
+
         while(opModeIsActive())
         {
             i++;
@@ -60,27 +88,31 @@ public class CustomVisionTest extends LinearOpMode
             }
             lastA = gamepad1.a;
 
+            long suml = 0;
             long sumr = 0;
-            long sumg = 0;
-            long sumb = 0;
 
-            long num = (width * height / 100);
-
-            for(int x = 0; x < width; x += 10)
+            for(int x = L_LEFT; x < L_RIGHT; x += L_XINC)
             {
-                for (int y = 0; y < height; y += 10)
+                for (int y = L_TOP; y < L_BOTTOM; y += L_YINC)
                 {
                     int color = bmp.getPixel(x, y);
 
-                    sumr += Color.red(color);
-                    sumg += Color.green(color);
-                    sumb += Color.blue(color);
+                    suml += Color.red(color) + Color.green(color) + Color.blue(color);
                 }
             }
 
-            int r = Color.red(bmp.getPixel(0, 0));
-            int g = Color.green(bmp.getPixel(0, 0));
-            int b = Color.blue(bmp.getPixel(0, 0));
+            for(int x = R_LEFT; x < R_RIGHT; x += R_XINC)
+            {
+                for (int y = R_TOP; y < R_BOTTOM; y += R_YINC)
+                {
+                    int color = bmp.getPixel(x, y);
+
+                    sumr += Color.red(color) + Color.green(color) + Color.blue(color);
+                }
+            }
+
+            double avgl = suml / (double) L_SCANSIZE;
+            double avgr = sumr / (double) R_SCANSIZE;
 
             time = System.currentTimeMillis();
 
@@ -95,12 +127,28 @@ public class CustomVisionTest extends LinearOpMode
             telemetry.addData("fps", fps);
             telemetry.addData("width", width);
             telemetry.addData("height", height);
-            telemetry.addData("r", r);
-            telemetry.addData("g", g);
-            telemetry.addData("b", b);
-            telemetry.addData("sumr", sumr / (double) num);
-            telemetry.addData("sumg", sumg / (double) num);
-            telemetry.addData("sumb", sumb / (double) num);
+            telemetry.addData("suml", suml);
+            telemetry.addData("avgl", avgl);
+            telemetry.addData("sumr", sumr);
+            telemetry.addData("avgr", avgr);
+
+            if(avgl > 150 && avgr > 150)
+            {
+                telemetry.addData("Position", "Left");
+            }
+            else if(avgl < 150 && avgr > 150)
+            {
+                telemetry.addData("Position", "Middle");
+            }
+            else if(avgl > 150 && avgr < 150)
+            {
+                telemetry.addData("Position", "Right");
+            }
+            else
+            {
+                telemetry.addData("Position", "Confused");
+            }
+
             telemetry.update();
         }
     }
