@@ -41,7 +41,7 @@ public class CustomVisionTest extends LinearOpMode
         final int L_RIGHT = 180;
         final int L_TOP = 135;
         final int L_BOTTOM = 205;
-        
+
         final int R_LEFT = 210;
         final int R_RIGHT = 390;
         final int R_TOP = 140;
@@ -132,21 +132,24 @@ public class CustomVisionTest extends LinearOpMode
             telemetry.addData("sumr", sumr);
             telemetry.addData("avgr", avgr);
 
-            if(avgl > 150 && avgr > 150)
-            {
-                telemetry.addData("Position", "Left");
-            }
-            else if(avgl < 150 && avgr > 150)
+            double max = Math.max(avgl, avgr);
+            avgl /= max;
+            avgr /= max;
+
+            telemetry.addData("avglr", avgl);
+            telemetry.addData("avgrr", avgr);
+
+            if(avgl < 0.65)
             {
                 telemetry.addData("Position", "Middle");
             }
-            else if(avgl > 150 && avgr < 150)
+            else if(avgr < 0.65)
             {
                 telemetry.addData("Position", "Right");
             }
             else
             {
-                telemetry.addData("Position", "Confused");
+                telemetry.addData("Position", "Left");
             }
 
             telemetry.update();
