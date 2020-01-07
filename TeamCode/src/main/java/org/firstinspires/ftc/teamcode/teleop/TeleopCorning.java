@@ -1,15 +1,14 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.Capstone;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Parker;
-@Disabled
-@TeleOp(group = "AAAAAAAAAA", name = "TeleopRochester")
-public class TeleopRochester extends GorillabotsCentral {
+
+@TeleOp(group = "AAAAAAAAAA", name = "TeleopCorning")
+public class TeleopCorning extends GorillabotsCentral {
 
     @Override
     public void runOpMode() {
