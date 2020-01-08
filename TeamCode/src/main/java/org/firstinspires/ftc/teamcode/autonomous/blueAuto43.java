@@ -16,7 +16,7 @@ public class blueAuto43 extends GorillabotsCentral
     {
         initializeComponentsAutonomous();
 
-        int pos = getSkystonePosBlue();
+        int pos = getBlue();
 
         grabber.rotate(Grabber.ROTATE_INIT);
         grabber.intake(Grabber.INTAKE_IN);

@@ -198,6 +198,7 @@ public class TeleopCorning extends GorillabotsCentral {
                     grabber.rotate(Grabber.ROTATE_INIT);
 
                     sleep(100);
+                    manualOverride = false;
 
                     while (opModeIsActive() && sensors.liftBot.getState() && !manualOverride) {
                         grabber.lift(-1);

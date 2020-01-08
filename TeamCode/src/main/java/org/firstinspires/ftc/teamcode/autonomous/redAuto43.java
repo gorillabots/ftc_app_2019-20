@@ -13,7 +13,7 @@ public class redAuto43 extends GorillabotsCentral {
     public void runOpMode() {
         initializeComponentsAutonomous();
 
-        int pos = getSkystonePosRed();
+        int pos = getRed();
 
         grabber.rotate(Grabber.ROTATE_INIT);
         grabber.intake(Grabber.INTAKE_IN);
@@ -92,8 +92,8 @@ public class redAuto43 extends GorillabotsCentral {
                 TurnAbsolute(0, .2, .5);
                 break;
             case 2:
-                MoveUntilEncoderGYRO(80, 180, .5, -83);
-                MoveUntilRangeB(5, 180, .5);
+                MoveUntilEncoderGYRO(75, 180, .5, -83);
+                MoveUntilRangeB(5, 180, .3);
                 grabber.intake(Grabber.INTAKE_IN);
                 grabber.rotate(Grabber.ROTATE_INIT);
                 //MoveUntilEncoderGYRO(7.5,90,.3,-83);

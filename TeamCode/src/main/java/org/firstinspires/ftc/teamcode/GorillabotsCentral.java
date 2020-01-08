@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.components.AutoDrive;
 import org.firstinspires.ftc.teamcode.components.Capstone;
+import org.firstinspires.ftc.teamcode.components.CustomVision;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Hooks;
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
@@ -37,6 +38,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     public RevGyro gyro;
     public Capstone capstone;
     public ElapsedTime timer;
+    public CustomVision vision;
 
     /*
     HUB # 1
@@ -130,6 +132,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         capstone.capstone(Capstone.CAPSTONE_INIT);
 
         gyro = new RevGyro(hardwareMap,telemetry);
+        vision = new CustomVision(hardwareMap,telemetry);
 
         telemetry.addData("done:","init");
         telemetry.update();
@@ -743,6 +746,23 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         parker.parkerPow(0);
         parker.setParkerEncoder(false);
     }
-
+    public int getRed(){
+        int pos = 2;
+        while(!isStarted() && !isStopRequested()) {
+            pos = vision.getPositionRed();
+            telemetry.addData("position", pos);
+            telemetry.update();
+        }
+        return pos;
+    }
+    public int getBlue(){
+        int pos = 2;
+        while(!isStarted() && !isStopRequested()) {
+            pos = vision.getPositionBlue();
+            telemetry.addData("position", pos);
+            telemetry.update();
+        }
+        return pos;
+    }
 
 }

@@ -22,7 +22,7 @@ public class ServoTestsIntakeInner extends LinearOpMode
 
         while (opModeIsActive())
         {
-          rollerB.setPower(1 );
+          rollerB.setPower(1);
         }
     }
 }
