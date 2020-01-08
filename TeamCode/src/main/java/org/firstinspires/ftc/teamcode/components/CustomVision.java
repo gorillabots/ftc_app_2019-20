@@ -131,32 +131,32 @@ public class CustomVision
         avgl /= max;
         avgr /= max;
 
-        if(avgl < 0.65)
+        if(avgl < 0.65) //Black = Left Visible = Middle
         {
             tele.addData("Position", "Middle");
             return 2;
         }
-        else if(avgr < 0.65)
+        else if(avgr < 0.65) //Black = Right Visible = Right
         {
             tele.addData("Position", "Right");
             return 3;
         }
-        else
+        else //Black = Neither = Left
         {
             tele.addData("Position", "Left");
             return 1;
         }
     }
 
-    final int BL_LEFT = 0; //TODO: Update numbers
-    final int BL_RIGHT = 180;
-    final int BL_TOP = 135;
-    final int BL_BOTTOM = 205;
+    final int BL_LEFT = 175; //TODO: Update numbers
+    final int BL_RIGHT = 340;
+    final int BL_TOP = 125;
+    final int BL_BOTTOM = 195;
 
-    final int BR_LEFT = 210;
-    final int BR_RIGHT = 390;
-    final int BR_TOP = 140;
-    final int BR_BOTTOM = 220;
+    final int BR_LEFT = 375;
+    final int BR_RIGHT = 550;
+    final int BR_TOP = 145;
+    final int BR_BOTTOM = 210;
 
     final int BL_XINC = 5;
     final int BL_YINC = 5;
@@ -210,20 +210,20 @@ public class CustomVision
         avgl /= max;
         avgr /= max;
 
-        if(avgl < 0.65)
+        if(avgl < 0.65) //Black = Left Visible = Left
+        {
+            tele.addData("Position", "Left");
+            return 1;
+        }
+        else if(avgr < 0.65) //Black = Right Visible = Middle
         {
             tele.addData("Position", "Middle");
             return 2;
         }
-        else if(avgr < 0.65)
+        else //Black = Neither = Right
         {
             tele.addData("Position", "Right");
             return 3;
-        }
-        else
-        {
-            tele.addData("Position", "Left");
-            return 1;
         }
     }
 }

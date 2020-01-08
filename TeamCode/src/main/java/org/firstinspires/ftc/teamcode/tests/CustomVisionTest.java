@@ -65,7 +65,8 @@ public class CustomVisionTest extends LinearOpMode
             }
             lastA = gamepad1.a;
 
-            int pos = vision.getPositionRed();
+            int posr = vision.getPositionRed();
+            int posb = vision.getPositionBlue();
 
             time = System.currentTimeMillis();
 
@@ -80,7 +81,8 @@ public class CustomVisionTest extends LinearOpMode
             telemetry.addData("fps", fps);
             telemetry.addData("width", width);
             telemetry.addData("height", height);
-            telemetry.addData("Position int", pos);
+            telemetry.addData("Position int red", posr);
+            telemetry.addData("Position int blu", posb);
 
             if(time - savet <= 1000)
             {
