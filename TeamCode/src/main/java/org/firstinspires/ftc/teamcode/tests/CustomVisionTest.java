@@ -31,16 +31,39 @@ public class CustomVisionTest extends LinearOpMode
         long time = System.currentTimeMillis();
         long reftime = time;
 
-        //Bitmap bmp = vision.getImage();
-        //int width = bmp.getWidth();
-        //int height = bmp.getHeight();
+        Bitmap bmp = vision.getImage();
+        int width = bmp.getWidth();
+        int height = bmp.getHeight();
 
         boolean lastA = false;
+        int savei = 0;
+        long savet = 0;
 
         while(opModeIsActive())
         {
             i++;
-            //bmp = vision.getImage();
+            bmp = vision.getImage();
+
+            if(gamepad1.a && !lastA)
+            {
+                File path = Environment.getExternalStorageDirectory();
+                String file = "pics/" + i + ".png";
+                File dest = new File(path, file);
+
+                try (FileOutputStream out = new FileOutputStream(dest))
+                {
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+                    // PNG is a lossless format, the compression factor (100) is ignored
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+
+                savei = i;
+                savet = System.currentTimeMillis();
+            }
+            lastA = gamepad1.a;
 
             int pos = vision.getPositionRed();
 
@@ -55,9 +78,14 @@ public class CustomVisionTest extends LinearOpMode
 
             telemetry.addData("i", i);
             telemetry.addData("fps", fps);
-            //telemetry.addData("width", width);
-            //telemetry.addData("height", height);
+            telemetry.addData("width", width);
+            telemetry.addData("height", height);
             telemetry.addData("Position int", pos);
+
+            if(time - savet <= 1000)
+            {
+                telemetry.addData("Saved Image", savei);
+            }
 
             telemetry.update();
         }
