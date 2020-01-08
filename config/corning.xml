@@ -7,7 +7,6 @@
             <Motor name="mfl" port="2" />
             <Motor name="mbl" port="3" />
             <Servo name="hookL" port="4" />
-            <ContinuousRotationServo name="rollerF" port="5" />
             <DigitalDevice name="liftBot" port="3" />
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />
             <REV_VL53L0X_RANGE_SENSOR name="rangeL" port="0" bus="1" />
@@ -19,7 +18,7 @@
             <ContinuousRotationServo name="rollerB" port="1" />
             <Servo name="capstone" port="2" />
             <Servo name="hookR" port="3" />
-            <Servo name="slicer" port="5" />
+            <ContinuousRotationServo name="rollerF" port="4" />
             <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
             <REV_VL53L0X_RANGE_SENSOR name="rangeF" port="0" bus="1" />
             <REV_VL53L0X_RANGE_SENSOR name="rangeB" port="0" bus="2" />
