@@ -40,7 +40,7 @@ public class blueAuto43 extends GorillabotsCentral
                 MoveUntilEncoderGYRO(7,90,.3,0);
                 TurnAbsolute(-15,.2,.5);*/
 
-                MoveUntilEncoderGYROfl(18,45,.3,0);
+                MoveUntilEncoderGYROfl(20,45,.3,0);
                 MoveUntilRangeF(9.25,0,.3);
                 TurnAbsolute(-15,.2,.5);
                 break;

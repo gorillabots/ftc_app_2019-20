@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.components.Grabber;
 
-@TeleOp(group="tests", name="ServoTestRotate")
+@TeleOp(group="tests", name="ServoTestIntakeInner")
 public class ServoTestsIntakeInner extends LinearOpMode
 {
     CRServo rollerB;
