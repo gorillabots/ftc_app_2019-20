@@ -750,6 +750,10 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         int pos = 2;
         while(!isStarted() && !isStopRequested()) {
             pos = vision.getPositionRed();
+            telemetry.addData("rangeF", sensors.getDistanceF());
+            telemetry.addData("rangeB", sensors.getDistanceB());
+            telemetry.addData("rangeR", sensors.getDistanceR());
+            telemetry.addData("rangeL", sensors.getDistanceL());
             telemetry.addData("position", pos);
             telemetry.update();
         }
@@ -759,6 +763,10 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         int pos = 2;
         while(!isStarted() && !isStopRequested()) {
             pos = vision.getPositionBlue();
+            telemetry.addData("rangeF", sensors.getDistanceF());
+            telemetry.addData("rangeB", sensors.getDistanceB());
+            telemetry.addData("rangeR", sensors.getDistanceR());
+            telemetry.addData("rangeL", sensors.getDistanceL());
             telemetry.addData("position", pos);
             telemetry.update();
         }
