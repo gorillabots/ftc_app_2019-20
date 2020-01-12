@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.components.CustomVision;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+@Disabled
 @Autonomous(name="CustomVisionTest", group="tests")
 public class CustomVisionTest extends LinearOpMode
 {
