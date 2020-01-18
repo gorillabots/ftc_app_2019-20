@@ -11,8 +11,8 @@ public class Capstone {
 
     public Servo capstone;
 
-    public static final double CAPSTONE_INIT = .26; //
-    public static final double CAPSTONE_DEPLOY = .76;
+    public static final double CAPSTONE_INIT = .24; //
+    public static final double CAPSTONE_DEPLOY = .5;
 
     public Capstone(HardwareMap hardwareMap, Telemetry telemetry) {
         tele = telemetry;
