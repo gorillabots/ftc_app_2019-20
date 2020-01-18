@@ -27,8 +27,9 @@ public class blueAuto43 extends GorillabotsCentral
         switch (pos)
         {
             case 1:
-                MoveUntilRangeF(9.25,0,.3);
+                MoveUntilEncoderGYRO(5,0,.3,0);
                 MoveUntilEncoderGYRO(11.5,270,.3,0);
+                MoveUntilRangeF(9,0,.3);
                 TurnAbsolute(-15,.2,.5);
                 break;
             case 2:
@@ -81,7 +82,7 @@ public class blueAuto43 extends GorillabotsCentral
         switch(pos) {
             case 1:
                 MoveUntilEncoderGYRO(86,180,.5,90);
-                MoveUntilRangeB(18,180,.3);
+                MoveUntilRangeB(22,180,.3);
                 grabber.intake(Grabber.INTAKE_IN);
                 grabber.rotate(Grabber.ROTATE_INIT);
                 TurnAbsolute(-6,.2,.5);

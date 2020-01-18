@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.components.Capstone;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Parker;
 
-@TeleOp(group = "AAAAAAAAAA", name = "TeleopCorning")
+@TeleOp(group = "AAAAAAAAAA", name = "TeleopYork")
 public class TeleopCorning extends GorillabotsCentral {
 
     @Override
