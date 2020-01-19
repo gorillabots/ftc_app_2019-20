@@ -85,12 +85,12 @@ public abstract class GorillabotsCentral extends LinearOpMode {
 
         grabber = new Grabber(hardwareMap,telemetry);
 
-        grabber.rotate(Grabber.ROTATE_INIT);
-        grabber.intake(Grabber.INTAKE_HOLD);
+        //grabber.rotate(Grabber.ROTATE_INIT);
+        //grabber.intake(Grabber.INTAKE_HOLD);
 
         hooks = new Hooks(hardwareMap,telemetry);
 
-        hooks.setDown(false);
+        //hooks.setDown(false);
 
         sensors = new Sensors(hardwareMap,telemetry);
 

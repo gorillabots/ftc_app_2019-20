@@ -17,6 +17,11 @@ public class TeleopCorning extends GorillabotsCentral {
 
         waitForStart(); // RIGHT TRIGGER PROGRESSES THE PROGRAM, RIGHT BUMPER DOES ACTIONS
 
+        grabber.rotate(Grabber.ROTATE_INIT);
+        grabber.intake(Grabber.INTAKE_HOLD);
+
+        hooks.setDown(false);
+
         boolean driveSlow = false;
         boolean driveSlowWatch = false;
 
