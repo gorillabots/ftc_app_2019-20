@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.MecanumDrive;
 
-@Disabled
 @TeleOp(group="tests", name="ServoTestRotate")
 public class ServoTestsRotate extends LinearOpMode
 {
