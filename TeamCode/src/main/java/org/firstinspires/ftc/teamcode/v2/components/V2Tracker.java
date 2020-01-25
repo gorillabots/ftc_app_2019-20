@@ -16,8 +16,10 @@ public class V2Tracker
 	private DcMotor encoderL, encoderR, encoderF;
 
 	//Constants
+	private final double TWO_PI = 2 * Math.PI;
+
 	private final double WHEEL_DIAMETER = 4; //inches
-	private final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_DIAMETER; //inches
+	private final double WHEEL_CIRCUMFERENCE = TWO_PI * WHEEL_DIAMETER; //inches
 	private final double ENCODER_TICKS_PER_REVOLUTION = 360;
 	private final double TICKS_PER_INCH = ENCODER_TICKS_PER_REVOLUTION / WHEEL_CIRCUMFERENCE;
 	private final double INCHES_PER_TICK = 1 / TICKS_PER_INCH;
@@ -26,15 +28,21 @@ public class V2Tracker
 	private final double ENCODER_R_RATE = INCHES_PER_TICK;
 	private final double ENCODER_F_RATE = INCHES_PER_TICK;
 
-	private final double LR_WIDTH = 2; //inches
-	private final double ROBOT_CIRCUMFERENCE = LR_WIDTH * Math.PI; //inches
+	private final double LR_RADIUS = 2; //inches
+	private final double LR_CIRCUMFERENCE = LR_RADIUS * TWO_PI; //inches
+
+	private final double FB_RADIUS = 2; //inches
+	private final double FB_CIRCUMFERENCE = FB_RADIUS * TWO_PI; //inches
 
 	//Local Variables
 	private double lastL = 0;
 	private double lastR = 0;
 	private double lastF = 0;
+	private double lastRot = 0;
 
 	private double x, y, rot;
+
+	private double rotFix = 0;
 
 	public V2Tracker(HardwareMap hardwareMap, Telemetry telemetry)
 	{
@@ -51,11 +59,17 @@ public class V2Tracker
 		rot = 0;
 	}
 
-	public void set(double x, double y, double rot)
+	public void setPos(double x, double y)
 	{
 		this.x = x;
 		this.y = y;
-		this.rot = rot;
+	}
+
+	public void setRot(double rot)
+	{
+		double gyroVal = gyro.getAngle();
+
+		rotFix = fixRadians(rot - gyroVal);
 	}
 
 	public void update()
@@ -63,21 +77,32 @@ public class V2Tracker
 		double curL = encoderL.getCurrentPosition();
 		double curR = encoderR.getCurrentPosition();
 		double curF = encoderF.getCurrentPosition();
+		double curRot = gyro.getAngle() + rotFix;
 
-		double deltaL = (curL - lastL) * ENCODER_L_RATE;
-		double deltaR = (curR - lastR) * ENCODER_R_RATE;
-		double deltaF = (curF - lastF) * ENCODER_F_RATE;
+		double deltaRot = fixRadians(curRot - lastRot);
+		if(deltaRot > Math.PI)
+		{
+			deltaRot -= TWO_PI;
+		}
+
+		double lr_rot_fix = (deltaRot / TWO_PI) * LR_CIRCUMFERENCE;
+		double fb_rot_fix = (deltaRot / TWO_PI) * FB_CIRCUMFERENCE;
+
+		double deltaL = (curL - lastL) * ENCODER_L_RATE + lr_rot_fix;
+		double deltaR = (curR - lastR) * ENCODER_R_RATE + lr_rot_fix;
+		double deltaF = (curF - lastF) * ENCODER_F_RATE + fb_rot_fix;
 
 		double deltaFB = (deltaL + deltaR) / 2;
 		double deltaRL = deltaF;
 
 		x += deltaRL;
 		y += deltaFB;
-		rot = gyro.getAngle();
+		rot = curRot;
 
 		lastL = curL;
 		lastR = curR;
 		lastF = curF;
+		lastRot = curRot;
 	}
 
 	public double getX()
@@ -93,5 +118,17 @@ public class V2Tracker
 	public double getRot()
 	{
 		return rot;
+	}
+
+	//Turns ugly radian values like 5pi/2 or -3pi/2 into a nice pi/2
+	private double fixRadians(double in)
+	{
+		double rad = in % TWO_PI;
+		if(rad < 0)
+		{
+			rad = rad + (2 * Math.PI);
+		}
+
+		return rad;
 	}
 }
