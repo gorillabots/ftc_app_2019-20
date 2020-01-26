@@ -41,7 +41,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     public CustomVision vision;
 
     /*
-    HUB # 1
+    HUB # 1 (says hub 2 on the phone but 1 in real life)
 
     Motors:
     0: mfr
@@ -50,30 +50,32 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     Servos:
     0: rotate
     1: rollerF
+    2: capstone
     3: hookR
-    5: parker
+    4: rollerB
 
     I2C:
-    0: imu
+    0: imu1
     1: rangeF
     2: rangeB
     3: rangeR
 
-    HUB # 2
+    HUB # 2 (says hub 1 on the phone but 2 in real life)
 
     Motors:
+    0: parker
     1: lift
     2: mfl
     3: mbl
 
     Servos:
-    5: rollerB
     4: hookL
 
     I2C:
+    0: imu
     1: rangeL
 
-    Digital Channels:
+    Digital Devices:
     3: liftBot
      */
 

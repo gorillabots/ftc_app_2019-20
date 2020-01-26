@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.components.Capstone;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Parker;
 
-@TeleOp(group = "AAAAAAAAAA", name = "TeleopYork")
-public class TeleopCorning extends GorillabotsCentral {
+@TeleOp(group = "AAAAAAAAAA", name = "TeleopRedLion")
+public class TeleopRedLion extends GorillabotsCentral {
 
     @Override
     public void runOpMode() {
@@ -59,7 +59,7 @@ public class TeleopCorning extends GorillabotsCentral {
             r = gamepad1.right_stick_x;
 
             // ACCESSORIES ↓
-            double liftPower = -gamepad2.left_stick_y + .05;
+            double liftPower = -gamepad2.left_stick_y + .08;
             if (liftPower > 1)
                 liftPower = 1;
             grabber.lift(liftPower);
@@ -77,6 +77,7 @@ public class TeleopCorning extends GorillabotsCentral {
 
             // HOOK CONTROL ↓
             hooks.setDown(isHookDeployed);
+
             // CAPSTONE ↓
             if (gamepad2.dpad_down)
             {
@@ -206,6 +207,12 @@ public class TeleopCorning extends GorillabotsCentral {
                     manualOverride = false;
 
                     while (opModeIsActive() && sensors.liftBot.getState() && !manualOverride) {
+
+                        if (gamepad2.left_bumper && !isArmUpWatch) {
+                            isArmUp = !isArmUp;
+                        }
+                        isArmUpWatch = gamepad2.left_bumper;
+
                         grabber.lift(-1);
 
                         manualOverride = (gamepad1.a || gamepad2.a);
