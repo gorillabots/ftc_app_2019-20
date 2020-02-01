@@ -21,29 +21,28 @@ public class redAuto43 extends GorillabotsCentral {
         switch (pos) { //pick up first block
             case 1:
                 MoveUntilEncoderGYRO(5, 0, .3, 0);
-                MoveUntilEncoderGYRO(28.5, 270, .6, 0);
+                MoveUntilEncoderGYRO(27, 270, .6, 0);
                 MoveUntilRangeF(10, 0, .3);//9
-                TurnAbsolute(-15, .2, .5);
+                //TurnAbsolute(-15, .2, .5);
                 break;
             case 2:
                 MoveUntilEncoderGYRO(5, 0, .3, 0);
                 MoveUntilEncoderGYRO(21, 270, .3, 0);
                 MoveUntilRangeF(10, 0, .3);//9.5
-                TurnAbsolute(-15, .2, .5);
+                //TurnAbsolute(-15, .2, .5);
                 break;
             case 3:
                 MoveUntilEncoderGYRO(5, 0, .3, 0);
                 MoveUntilEncoderGYRO(11, 270, .3, 0);
                 MoveUntilRangeF(10, 0, .3);//9.5
-                TurnAbsolute(-15, .2, .5);
+                //TurnAbsolute(-15, .2, .5);
                 break;
         }
 
         grabber.rotate(Grabber.ROTATE_DOWN);
-        sleep(1500);
+        sleep(1000);
         grabber.intake(Grabber.INTAKE_HOLD);
         grabber.rotate(Grabber.ROTATE_45);
-
         MoveUntilEncoder(2, 180, .3);
         TurnAbsolute(90, .2, .5);
 
@@ -61,7 +60,6 @@ public class redAuto43 extends GorillabotsCentral {
                 MoveUntilRangeB(28, 180, .3);
                 break;
         }
-
         grabber.rotate(Grabber.ROTATE_INIT);
         TurnAbsolute(0, .2, .5);
         MoveUntilRangeF(4, 0, .3);
@@ -76,19 +74,20 @@ public class redAuto43 extends GorillabotsCentral {
 
         switch (pos) { //drive back and pick up the 2nd block
             case 1:
-                MoveUntilEncoderGYRO(85, 180, .7, -83);
+                MoveUntilEncoderGYRO(83, 180, .7, -83);
                 MoveUntilRangeB(5, 180, .3);
                 grabber.intake(Grabber.INTAKE_IN);
                 grabber.rotate(Grabber.ROTATE_INIT);
                 TurnAbsolute(0, .2, .5);
                 MoveUntilTime(500, 270, .5);
-                MoveUntilRangeF(9, 0, .2);
-                TurnAbsolute(29, .2, .5);
-                MoveUntilRangeF(8.5, 0, .3);
+                MoveUntilTime(250,180,.4);
+                MoveUntilRangeF(11, 0, .2);
                 grabber.rotate(Grabber.ROTATE_ALIGN);
-                MoveUntilEncoderGYRO(3, -30, .4, 30);
+                TurnAbsolute(29, .2, .5);
+                MoveUntilEncoderGYRO(6, 0, .4, 30);
                 grabber.rotate(Grabber.ROTATE_DOWN);
-                sleep(600);
+                sleep(500);
+                grabber.rotate(Grabber.INTAKE_HOLD);
                 TurnAbsolute(0, .2, .5);
                 break;
             case 2:
@@ -98,8 +97,11 @@ public class redAuto43 extends GorillabotsCentral {
                 grabber.rotate(Grabber.ROTATE_INIT);
                 //MoveUntilEncoderGYRO(7.5,90,.3,-83);
                 //TurnAbsolute(0,.2,.5);
-                TurnAbsolute(6, .2, .5);
-                MoveUntilRangeF(9, 0, .3);
+                TurnAbsolute(0, .2, .5);
+                MoveUntilTime(500,270,.3);
+                TurnAbsolute(0, .2, .5);
+                MoveUntilTime(250,180,.4);
+                MoveUntilRangeF(9.5, 0,.3);
                 grabber.rotate(Grabber.ROTATE_DOWN);
                 sleep(1000);
                 break;
@@ -108,12 +110,13 @@ public class redAuto43 extends GorillabotsCentral {
                 MoveUntilRangeB(16, 180, .3);
                 grabber.intake(Grabber.INTAKE_IN);
                 grabber.rotate(Grabber.ROTATE_INIT);
-                TurnAbsolute(-6, .2, .5);
-                MoveUntilRangeF(9, 0, .3);
+                TurnAbsolute(0, .2, .5);
+                MoveUntilRangeF(10, 0, .3);
                 grabber.rotate(Grabber.ROTATE_DOWN);
                 sleep(1000);
                 break;
         }
+
         grabber.intake(Grabber.INTAKE_HOLD);
         grabber.rotate(Grabber.ROTATE_45);
         switch (pos) { //back up to get ready for final trek
@@ -129,6 +132,7 @@ public class redAuto43 extends GorillabotsCentral {
         }
 
         TurnAbsolute(-90, .2, .5);
+
         switch (pos) { //final trek
             case 1:
                 MoveUntilEncoderGYRO(106, 0, .7, -85.7);
@@ -155,46 +159,52 @@ public class redAuto43 extends GorillabotsCentral {
 
         switch (pos){ //reposition the platform
             case 1:
-                MoveUntilEncoder(18,180,.35);
+                MoveUntilEncoder(4,180,.2);
+                MoveUntilEncoder(14,180,.35);
                 specialTurn();
                 hooks.hookR(Hooks.HOOKR_MID);
                 hooks.hookL(Hooks.HOOKL_MID);
                 sleep(250);
-                parker.parkerPow(Parker.PARKER_OUT);
+                //parker.parkerPow(Parker.PARKER_OUT);
                 MoveUntilEncoder(4, 180, .5);
                 hooks.setDown(true);
-                sleep(750);
-                MoveUntilTime(300, 0, .7);
+                sleep(150);
+                setParkerPos(900);
+                MoveUntilTime(500, 0, .7);
                 MoveUntilEncoder(8, 160, .5);
                 TurnAbsolute(-102,.2,.5);
                 parker.parkerPow(0);
                 MoveUntilEncoder(10,180,.5);
                 break;
             case 2:
-                MoveUntilEncoder(15,180,.3);
+                MoveUntilEncoder(4,180,.2);
+                MoveUntilEncoder(13,180,.3);
                 specialTurn();
                 hooks.setDown(false);
                 sleep(500);
                 MoveUntilEncoder(4, 180, .5);
                 hooks.setDown(true);
-                parker.parkerPow(Parker.PARKER_OUT);
-                sleep(750);
-                MoveUntilTime(300, 0, .7);
+                //parker.parkerPow(Parker.PARKER_OUT);
+                sleep(150);
+                setParkerPos(900);
+                MoveUntilTime(500, 0, .7);
                 MoveUntilEncoder(8, 160, .5);
                 TurnAbsolute(-102,.2,.5);
                 parker.parkerPow(0);
                 MoveUntilEncoder(10,180,.5);
                 break;
             case 3:
-                MoveUntilEncoder(14.9,180,.3);
+                MoveUntilEncoder(4,180,.2);
+                MoveUntilEncoder(12.9,180,.3);
                 specialTurn();
                 hooks.setDown(false);
                 sleep(500);
                 MoveUntilEncoder(4, 180, .5);
                 hooks.setDown(true);
-                parker.parkerPow(Parker.PARKER_OUT);
-                sleep(750);
-                MoveUntilTime(300, 0, .7);
+              //  parker.parkerPow(Parker.PARKER_OUT);
+                sleep(150);
+                setParkerPos(900);
+                MoveUntilTime(500, 0, .7);
                 MoveUntilEncoder(8, 160, .5);
                 TurnAbsolute(-102,.2,.5);
                 parker.parkerPow(0);

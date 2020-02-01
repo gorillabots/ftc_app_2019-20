@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -304,6 +305,23 @@ public abstract class GorillabotsCentral extends LinearOpMode {
             telemetry.addData("s", drive.mfl.getCurrentPosition() - initPos);
             telemetry.update();
             MoveTowR(direction, power, (gyro.getAngle() - gyroT) / 50);
+        }
+        stopMotors();
+    }
+    public void MoveUntilEncoderGYRORangeR(double distance, double direction, double power, double gyroT, double rangeT) {
+        setMotorsBackwards();
+        setDriveEncoderOn(false);
+        int initPos = drive.mfr.getCurrentPosition();
+        double correctionDirection = 0;
+        MoveTo(direction, power);
+        distance = distance * 1000 / 34;
+        while ((abs(drive.mfr.getCurrentPosition() - initPos) < abs(distance)) && opModeIsActive()) {
+            telemetry.addData("getCurPos", drive.mfr.getCurrentPosition());
+            telemetry.addData("s", drive.mfr.getCurrentPosition() - initPos);
+            telemetry.addData("range",correctionDirection);
+            telemetry.update();
+            correctionDirection = (sensors.rangeR.getDistance(DistanceUnit.INCH) - rangeT) * 5;
+            MoveTowR(direction + correctionDirection, power, (gyro.getAngle() - gyroT) / 50);
         }
         stopMotors();
     }
@@ -728,7 +746,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         int start = parker.parker.getCurrentPosition();
         int end = start - pos;
 
-        parker.parkerPow(Parker.PARKER_OUT);
+        parker.parkerPow(Parker.PARKER_OUT * 2);
 
         parker.parker.setTargetPosition(end);
         timer.reset();
