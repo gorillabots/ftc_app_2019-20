@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.components.Alignment;
 import org.firstinspires.ftc.teamcode.components.AutoDrive;
 import org.firstinspires.ftc.teamcode.components.Capstone;
 import org.firstinspires.ftc.teamcode.components.CustomVision;
@@ -31,6 +32,7 @@ import static org.firstinspires.ftc.teamcode.components.Parker.PARKER_OUT;
 public abstract class GorillabotsCentral extends LinearOpMode {
 
     public AutoDrive ADrive;
+    public Alignment alignment;
     public Grabber grabber;
     public Hooks hooks;
     public Sensors sensors;
@@ -94,6 +96,10 @@ public abstract class GorillabotsCentral extends LinearOpMode {
 
         //hooks.setDown(false);
 
+        alignment = new Alignment(hardwareMap, telemetry);
+
+        alignment.alignment(Alignment.ALGIN_INIT);
+
         sensors = new Sensors(hardwareMap, telemetry);
 
         drive = new MecanumDrive(hardwareMap, telemetry);
@@ -121,6 +127,10 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         hooks = new Hooks(hardwareMap, telemetry);
 
         hooks.setDown(false);
+
+        alignment = new Alignment(hardwareMap, telemetry);
+
+        alignment.alignment(Alignment.ALGIN_INIT);
 
         sensors = new Sensors(hardwareMap, telemetry);
 

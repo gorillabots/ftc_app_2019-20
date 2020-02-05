@@ -13,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class Sensors
 {
     public DigitalChannel liftBot;
+    public DigitalChannel alignT;
     public Rev2mDistanceSensor rangeF;
     public Rev2mDistanceSensor rangeB;
     public Rev2mDistanceSensor rangeL;
@@ -22,6 +23,8 @@ public class Sensors
     {
         liftBot = hardwareMap.get(DigitalChannel.class,"liftBot");
         liftBot.setMode(DigitalChannel.Mode.INPUT);
+        alignT = hardwareMap.get(DigitalChannel.class,"liftBot");
+        alignT.setMode(DigitalChannel.Mode.INPUT);
         rangeF = hardwareMap.get(Rev2mDistanceSensor.class, "rangeF");
         rangeB = hardwareMap.get(Rev2mDistanceSensor.class, "rangeB");
         rangeR = hardwareMap.get(Rev2mDistanceSensor.class, "rangeR");

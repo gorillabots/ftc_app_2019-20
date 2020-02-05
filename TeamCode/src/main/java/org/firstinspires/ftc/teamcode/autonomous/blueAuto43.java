@@ -27,17 +27,11 @@ public class blueAuto43 extends GorillabotsCentral
         switch (pos)
         {
             case 1:
-<<<<<<< HEAD
                 MoveUntilEncoderGYRO(5,0,.3,0);
                 MoveUntilEncoderGYRO(11.5,270,.3,0);
                 MoveUntilRangeF(9,0,.3);
-                TurnAbsolute(-15,.2,.5);
-=======
-
-                MoveUntilEncoderGYRO(11.5,270,.3,0);
-                MoveUntilRangeF(9,0,.3);
                 //TurnAbsolute(-15,.2,.5);
->>>>>>> 40484ba53361ab01ab4ec41a6980f554ef148c28
+
                 break;
             case 2:
                 MoveUntilRangeF(9,0,.3);

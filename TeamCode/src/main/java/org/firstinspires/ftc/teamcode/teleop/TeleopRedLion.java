@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.GorillabotsCentral;
+import org.firstinspires.ftc.teamcode.components.Alignment;
 import org.firstinspires.ftc.teamcode.components.Capstone;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Parker;
@@ -104,7 +105,7 @@ public class TeleopRedLion extends GorillabotsCentral {
             }
             isArmUpWatch = gamepad2.left_bumper;
 
-            if (gamepad1.right_bumper && !doItWatch) {
+            if ((gamepad1.right_bumper && !doItWatch) || sensors.alignT.getState()) {
                 doIt = !doIt;
             }
             doItWatch = gamepad1.right_bumper;
@@ -137,6 +138,7 @@ public class TeleopRedLion extends GorillabotsCentral {
                     drive.go(x, y, r); // drive speed max
 
                     grabber.intake(Grabber.INTAKE_HOLD);
+                    alignment.alignment(Alignment.ALIGN_TELEREST);
 
                     if(isArmUp)
                         grabber.rotate(Grabber.ROTATE_INIT);
@@ -148,6 +150,7 @@ public class TeleopRedLion extends GorillabotsCentral {
                     break;
                 case 1: //collection
                     drive.go(x * .25, y * .25, r * .25); // drive speed 1/4
+                    alignment.alignment(Alignment.ALIGN_DOWN);
 
                     switch (collectStage) {
                         case 0: //collecting
@@ -174,6 +177,8 @@ public class TeleopRedLion extends GorillabotsCentral {
                     break;
                 case 2:  //normal: transporting
                     drive.go(x, y, r); // drive speed max
+
+                    alignment.alignment(Alignment.ALIGN_TELEREST);
 
                     grabber.intake(Grabber.INTAKE_HOLD);
                     if(isArmUp)
