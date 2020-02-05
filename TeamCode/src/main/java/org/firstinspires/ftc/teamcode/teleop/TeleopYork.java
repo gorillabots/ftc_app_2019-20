@@ -8,7 +8,11 @@ import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Parker;
 
 @TeleOp(group = "AAAAAAAAAA", name = "TeleopYork")
+<<<<<<< HEAD:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/teleop/TeleopCorning.java
 public class TeleopCorning extends GorillabotsCentral {
+=======
+public class TeleopYork extends GorillabotsCentral {
+>>>>>>> 40484ba53361ab01ab4ec41a6980f554ef148c28:TeamCode/src/main/java/org/firstinspires/ftc/teamcode/teleop/TeleopYork.java
 
     @Override
     public void runOpMode() {
@@ -16,6 +20,11 @@ public class TeleopCorning extends GorillabotsCentral {
         initializeComponents();
 
         waitForStart(); // RIGHT TRIGGER PROGRESSES THE PROGRAM, RIGHT BUMPER DOES ACTIONS
+
+        grabber.rotate(Grabber.ROTATE_INIT);
+        grabber.intake(Grabber.INTAKE_HOLD);
+
+        hooks.setDown(false);
 
         boolean driveSlow = false;
         boolean driveSlowWatch = false;

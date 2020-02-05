@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.Parker;
 
-@Disabled
+
 @Autonomous(group = "test", name = "ethan")
 public class Ethan extends LinearOpMode {
     DcMotor motor;
