@@ -60,7 +60,12 @@ public class TeleopRedLion extends GorillabotsCentral {
             r = gamepad1.right_stick_x;
 
             // ACCESSORIES ↓
-            double liftPower = -gamepad2.left_stick_y + .08;
+            double liftPower = -gamepad2.left_stick_y;
+            if (stage == 3)
+            {
+                liftPower += .8;
+            }
+
             if (liftPower > 1)
                 liftPower = 1;
             grabber.lift(liftPower);
@@ -105,7 +110,7 @@ public class TeleopRedLion extends GorillabotsCentral {
             }
             isArmUpWatch = gamepad2.left_bumper;
 
-            if ((gamepad1.right_bumper && !doItWatch) || sensors.alignT.getState()) {
+            if (gamepad1.right_bumper && !doItWatch) {
                 doIt = !doIt;
             }
             doItWatch = gamepad1.right_bumper;
@@ -151,6 +156,10 @@ public class TeleopRedLion extends GorillabotsCentral {
                 case 1: //collection
                     drive.go(x * .25, y * .25, r * .25); // drive speed 1/4
                     alignment.alignment(Alignment.ALIGN_DOWN);
+
+                    if(!sensors.alignT.getState()){
+                        doIt = true;
+                    }
 
                     switch (collectStage) {
                         case 0: //collecting
@@ -210,6 +219,7 @@ public class TeleopRedLion extends GorillabotsCentral {
 
                     sleep(100);
                     manualOverride = false;
+                    alignment.alignment(Alignment.ALIGN_45);
 
                     while (opModeIsActive() && sensors.liftBot.getState() && !manualOverride) {
 

@@ -52,6 +52,7 @@ public class ServoTestsAlignment extends GorillabotsCentral
             alignment.alignment(position);
 
             telemetry.addData("position", position);
+            telemetry.addData("state", sensors.alignT.getState());
             telemetry.update();
         }
     }

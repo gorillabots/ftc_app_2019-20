@@ -23,7 +23,7 @@ public class Sensors
     {
         liftBot = hardwareMap.get(DigitalChannel.class,"liftBot");
         liftBot.setMode(DigitalChannel.Mode.INPUT);
-        alignT = hardwareMap.get(DigitalChannel.class,"liftBot");
+        alignT = hardwareMap.get(DigitalChannel.class,"alignT");
         alignT.setMode(DigitalChannel.Mode.INPUT);
         rangeF = hardwareMap.get(Rev2mDistanceSensor.class, "rangeF");
         rangeB = hardwareMap.get(Rev2mDistanceSensor.class, "rangeB");
