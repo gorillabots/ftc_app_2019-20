@@ -108,6 +108,8 @@ public abstract class GorillabotsCentral extends LinearOpMode {
 
         capstone = new Capstone(hardwareMap, telemetry);
 
+        capstone.capstone(Capstone.CAPSTONE_INIT);
+
         //gyro = new RevGyro(hardwareMap,telemetry);
 
         telemetry.addData("done:", "init");

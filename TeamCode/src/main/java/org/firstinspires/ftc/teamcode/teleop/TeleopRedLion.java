@@ -63,7 +63,7 @@ public class TeleopRedLion extends GorillabotsCentral {
             double liftPower = -gamepad2.left_stick_y;
             if (stage == 3)
             {
-                liftPower += .8;
+                liftPower += .08;
             }
 
             if (liftPower > 1)
@@ -154,8 +154,8 @@ public class TeleopRedLion extends GorillabotsCentral {
                     collectStage = 0;
                     break;
                 case 1: //collection
-                    drive.go(x * .25, y * .25, r * .25); // drive speed 1/4
-                    alignment.alignment(Alignment.ALIGN_DOWN);
+                    drive.go(x * .35, y * .35, r * .35); // drive speed 7/20
+                    //alignment.alignment(Alignment.ALIGN_DOWN);
 
                     if(!sensors.alignT.getState()){
                         doIt = true;
@@ -221,7 +221,7 @@ public class TeleopRedLion extends GorillabotsCentral {
                     manualOverride = false;
                     alignment.alignment(Alignment.ALIGN_45);
 
-                    while (opModeIsActive() && sensors.liftBot.getState() && !manualOverride) {
+                    while (opModeIsActive() && sensors.liftTop.getState() && !manualOverride) {
 
                         if (gamepad2.left_bumper && !isArmUpWatch) {
                             isArmUp = !isArmUp;
@@ -229,6 +229,20 @@ public class TeleopRedLion extends GorillabotsCentral {
                         isArmUpWatch = gamepad2.left_bumper;
 
                         grabber.lift(-1);
+
+                        manualOverride = (gamepad1.a || gamepad2.a);
+
+                        drive.go(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
+                    }
+
+                    while (opModeIsActive() && sensors.liftBot.getState() && !manualOverride) {
+
+                        if (gamepad2.left_bumper && !isArmUpWatch) {
+                            isArmUp = !isArmUp;
+                        }
+                        isArmUpWatch = gamepad2.left_bumper;
+
+                        grabber.lift(-.4);
 
                         manualOverride = (gamepad1.a || gamepad2.a);
 
