@@ -10,16 +10,23 @@ public class Capstone {
     Telemetry tele;
 
     public Servo capstone;
+    public Servo intCapstone;
 
     public static final double CAPSTONE_INIT = .24; //
     public static final double CAPSTONE_DEPLOY = .5;
 
+    public static final double INTCAPSTONE_SAFE = .55;
+    public static final double INTCAPSTONE_PREP = .11;
+    public static final double INTCAPSTONE_ACTIVATE = 0.55;
+
     public Capstone(HardwareMap hardwareMap, Telemetry telemetry) {
         tele = telemetry;
         capstone = hardwareMap.get(Servo.class, "capstone");
+        intCapstone = hardwareMap.get(Servo.class, "intCapstone");
     }
     public void capstone(double pos)
     {
         capstone.setPosition(pos);
     }
+    public void intCapstone(double pos){intCapstone.setPosition(pos);}
 }

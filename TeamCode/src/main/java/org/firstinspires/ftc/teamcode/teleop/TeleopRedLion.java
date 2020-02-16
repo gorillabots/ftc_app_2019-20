@@ -43,6 +43,10 @@ public class TeleopRedLion extends GorillabotsCentral {
         int stage = 0;
         boolean switchStageWatch = false;
 
+        int intCapStage = 0;
+        boolean intCapStageWatch = false;
+
+        boolean backIntCapStageWatch = false;
         boolean backStageWatch = false;
 
         boolean manualOverride = false;
@@ -132,6 +136,40 @@ public class TeleopRedLion extends GorillabotsCentral {
 
             telemetry.addData("stage:", stage);
 
+
+            if (gamepad2.dpad_right && !intCapStageWatch) {
+                intCapStage += 1;
+            }
+            intCapStageWatch = gamepad2.dpad_right;
+
+            if (gamepad2.dpad_left && !backIntCapStageWatch) {
+                intCapStage -= 1;
+            }
+            backIntCapStageWatch = gamepad2.dpad_left;
+
+            switch (intCapStage)
+            {
+                case 0:
+                    capstone.intCapstone(Capstone.INTCAPSTONE_SAFE);
+                    break;
+                case 1:
+                    capstone.intCapstone(Capstone.INTCAPSTONE_PREP);
+                    break;
+                case 2:
+                    grabber.rotate(Grabber.ROTATE_INTCAPDEP);
+                    break;
+                case 3:
+                    grabber.rotate(Grabber.ROTATE_INTCAPDEP);
+                    capstone.intCapstone(Capstone.INTCAPSTONE_ACTIVATE);
+                    break;
+                case 4:
+                    intCapStage = 0;
+                    break;
+
+            }
+
+            telemetry.addData("stage:", stage);
+            telemetry.addData("capStage:", intCapStage);
             //BULK OF PROGRAM: STAGES 0-3 ↓
 
             switch (stage) {
@@ -147,6 +185,8 @@ public class TeleopRedLion extends GorillabotsCentral {
 
                     if(isArmUp)
                         grabber.rotate(Grabber.ROTATE_INIT);
+                    else if (intCapStage >= 2)
+                        grabber.rotate(Grabber.ROTATE_INTCAPDEP);
                     else
                         grabber.rotate(Grabber.ROTATE_45);
 
@@ -192,6 +232,8 @@ public class TeleopRedLion extends GorillabotsCentral {
                     grabber.intake(Grabber.INTAKE_HOLD);
                     if(isArmUp)
                         grabber.rotate(Grabber.ROTATE_INIT);
+                    else if (intCapStage >= 2)
+                        grabber.rotate(Grabber.ROTATE_INTCAPDEP);
                     else
                         grabber.rotate(Grabber.ROTATE_45);
 

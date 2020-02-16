@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 
-@Autonomous(group = "test", name = "ethan")
+@Autonomous(group = "test", name = "ethan2")
 public class Ethan2 extends LinearOpMode {
     DigitalChannel touch;
 
