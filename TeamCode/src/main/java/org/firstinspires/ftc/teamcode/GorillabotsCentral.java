@@ -290,6 +290,17 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         }
         stopMotors();
     }
+    public void MoveUntilRangeLG(double distance, double direction, double power, double gyroT) {
+        setDriveEncoderOn(false);
+        setMotorsBackwards();
+        MoveTo(direction, power);
+        while ((sensors.getDistanceL() > distance) && opModeIsActive())  {
+            MoveTowR(direction, power, (gyro.getAngle() - gyroT) / 50);
+            telemetry.addData("d", sensors.getDistanceL());
+            telemetry.update();
+        }
+        stopMotors();
+    }
 
     public void MoveUntilEncoderGYRO(double distance, double direction, double power, double gyroT) {
         setMotorsBackwards();
@@ -345,7 +356,23 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         sleep(timeMilli);
         stopMotors();
     }
+    public void MoveUntilTouch (double direction, double power, double gyroT){
+        setDriveEncoderOn(false);
+        setMotorsBackwards();
+        while ((sensors.alignT.getState()) && opModeIsActive()) {
+            MoveTowR(direction, power,(gyro.getAngle() - gyroT) / 50);
+        }
+        stopMotors();
+    }
 
+    public void MoveUntilTouchRangeF (double direction, double power, double gyroT){
+        setDriveEncoderOn(false);
+        setMotorsBackwards();
+        while ((sensors.alignT.getState() || sensors.getDistanceF() > 8) && opModeIsActive()) {
+            MoveTowR(direction, power,(gyro.getAngle() - gyroT) / 50);
+        }
+        stopMotors();
+    }
     public void MoveTo(double degree, double power) {
         double degreeRad = Math.toRadians(degree - degreeCorrection); // Convert to radians
         double cs = Math.cos(degreeRad);
@@ -431,8 +458,8 @@ public abstract class GorillabotsCentral extends LinearOpMode {
             TargetDegree = -180;
         }
 
-        double MaxPower = 0.5;
-        double minPower = 0.2;
+        double MaxPower = max;
+        double minPower = min;
 
         double correctionDegree = 5;
         double beginDegree;

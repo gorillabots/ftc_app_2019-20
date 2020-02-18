@@ -19,7 +19,7 @@ public class AutoTesting extends GorillabotsCentral
     public void runOpMode()
     {
 //      AutoDrive drive = new AutoDrive(hardwareMap, telemetry);
-        initializeComponents();
+        initializeComponentsAutonomous();;
         waitForStart();
 
        // ADrive.driveCartesian(0.2, 0.2, 50);

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.Alignment;
 import org.firstinspires.ftc.teamcode.components.Capstone;
@@ -134,9 +133,6 @@ public class TeleopRedLion extends GorillabotsCentral {
             }
             backStageWatch = gamepad1.left_trigger > .5;
 
-            telemetry.addData("stage:", stage);
-
-
             if (gamepad2.dpad_right && !intCapStageWatch) {
                 intCapStage += 1;
             }
@@ -149,6 +145,9 @@ public class TeleopRedLion extends GorillabotsCentral {
 
             switch (intCapStage)
             {
+                case -1:
+                    intCapStage = 3;
+                    break;
                 case 0:
                     capstone.intCapstone(Capstone.INTCAPSTONE_SAFE);
                     break;
@@ -157,10 +156,13 @@ public class TeleopRedLion extends GorillabotsCentral {
                     break;
                 case 2:
                     grabber.rotate(Grabber.ROTATE_INTCAPDEP);
+                    capstone.intCapstone(Capstone.INTCAPSTONE_PREP);
+                    alignment.alignment(Alignment.ALGIN_INIT);
                     break;
                 case 3:
                     grabber.rotate(Grabber.ROTATE_INTCAPDEP);
                     capstone.intCapstone(Capstone.INTCAPSTONE_ACTIVATE);
+                    alignment.alignment(Alignment.ALGIN_INIT);
                     break;
                 case 4:
                     intCapStage = 0;
@@ -181,15 +183,20 @@ public class TeleopRedLion extends GorillabotsCentral {
                     drive.go(x, y, r); // drive speed max
 
                     grabber.intake(Grabber.INTAKE_HOLD);
-                    alignment.alignment(Alignment.ALIGN_TELEREST);
 
-                    if(isArmUp)
+
+                    if(isArmUp){
                         grabber.rotate(Grabber.ROTATE_INIT);
-                    else if (intCapStage >= 2)
+                        alignment.alignment(Alignment.ALGIN_INIT);
+                    }
+                    else if (intCapStage >= 2) {
                         grabber.rotate(Grabber.ROTATE_INTCAPDEP);
-                    else
+                        alignment.alignment(Alignment.ALGIN_INIT);
+                    }
+                    else {
                         grabber.rotate(Grabber.ROTATE_45);
-
+                        alignment.alignment(Alignment.ALIGN_TELEREST);
+                    }
                     doIt = false; // prep for next stage ↓
                     collectStage = 0;
                     break;
@@ -227,15 +234,20 @@ public class TeleopRedLion extends GorillabotsCentral {
                 case 2:  //normal: transporting
                     drive.go(x, y, r); // drive speed max
 
-                    alignment.alignment(Alignment.ALIGN_TELEREST);
-
                     grabber.intake(Grabber.INTAKE_HOLD);
-                    if(isArmUp)
+
+                    if(isArmUp){
                         grabber.rotate(Grabber.ROTATE_INIT);
-                    else if (intCapStage >= 2)
+                        alignment.alignment(Alignment.ALGIN_INIT);
+                    }
+                    else if (intCapStage >= 2) {
                         grabber.rotate(Grabber.ROTATE_INTCAPDEP);
-                    else
+                        alignment.alignment(Alignment.ALGIN_INIT);
+                    }
+                    else {
                         grabber.rotate(Grabber.ROTATE_45);
+                        alignment.alignment(Alignment.ALIGN_TELEREST);
+                    }
 
                     releasing = false;
                     break;

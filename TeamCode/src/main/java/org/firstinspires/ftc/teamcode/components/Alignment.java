@@ -13,7 +13,6 @@ public class Alignment
 
     public static final double ALIGN_DOWN = .28;
     public static final double ALIGN_TELEREST = .87;
-
     public static final double ALIGN_45 = .77;
     public static final double ALGIN_INIT = .94;
 
