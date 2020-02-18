@@ -11,7 +11,7 @@ public class Alignment
 
     Servo alignment;
 
-    public static final double ALIGN_DOWN = .28;
+    public static final double ALIGN_DOWN = .3;
     public static final double ALIGN_TELEREST = .87;
     public static final double ALIGN_45 = .77;
     public static final double ALGIN_INIT = .94;

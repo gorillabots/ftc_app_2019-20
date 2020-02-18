@@ -144,6 +144,8 @@ public abstract class GorillabotsCentral extends LinearOpMode {
 
         capstone.capstone(Capstone.CAPSTONE_INIT);
 
+        capstone.intCapstone(Capstone.INTCAPSTONE_SAFE);
+
         gyro = new RevGyro(hardwareMap, telemetry);
         vision = new CustomVision(hardwareMap, telemetry);
 
@@ -278,6 +280,17 @@ public abstract class GorillabotsCentral extends LinearOpMode {
         }
         stopMotors();
     }
+    public void MoveUntilRangeFwithG(double distance, double direction, double power,double gyroT) {
+        setDriveEncoderOn(false);
+        setMotorsBackwards();
+        MoveTo(direction, power);
+        while ((sensors.getDistanceF() > distance) && opModeIsActive()) {
+            MoveTowR(direction, power, (gyro.getAngle() - gyroT) / 50);
+            telemetry.addData("d", sensors.getDistanceB());
+            telemetry.update();
+        }
+        stopMotors();
+    }
 
     public void MoveUntilRangeRG(double distance, double direction, double power, double gyroT) {
         setDriveEncoderOn(false);
@@ -368,7 +381,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     public void MoveUntilTouchRangeF (double direction, double power, double gyroT){
         setDriveEncoderOn(false);
         setMotorsBackwards();
-        while ((sensors.alignT.getState() || sensors.getDistanceF() > 8) && opModeIsActive()) {
+        while ((sensors.alignT.getState() && sensors.getDistanceF() > 8) && opModeIsActive()) {
             MoveTowR(direction, power,(gyro.getAngle() - gyroT) / 50);
         }
         stopMotors();

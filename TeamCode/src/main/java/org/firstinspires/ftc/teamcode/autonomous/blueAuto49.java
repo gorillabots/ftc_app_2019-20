@@ -35,36 +35,32 @@ public class blueAuto49 extends GorillabotsCentral {
                 //break;
         }
 
-        grabber.rotate(Grabber.ROTATE_DOWN);
-
+        grabber.rotate(Grabber.ROTATE_DOWN); //first block
         sleep(550);
-
         grabber.rotate(Grabber.ROTATE_45);
         alignment.alignment(Alignment.ALIGN_45);
         grabber.intake(Grabber.INTAKE_IN * .1);
-
         MoveUntilEncoderGYRO(5,180,.3,0);
-
         MoveUntilEncoderGYRO(60,180,.5,-88); //Turn
         hooks.hookL(Hooks.HOOKL_MID);
         hooks.hookR(Hooks.HOOKR_MID);
         MoveUntilEncoderGYRO(28,180,.75,-88);
         TurnAbsolute(0,.2,5);
-        MoveUntilRangeF(4,0,.5);
-        hooks.setDown(true);
-
-        MoveUntilEncoderGYRO(10,180,1,0);
+        MoveUntilRangeFwithG(4,0,.3,0);
+        hooks.setDown(true); //drag foundation
+        sleep(500);
         grabber.intake(Grabber.INTAKE_OUT);
+        MoveUntilEncoderGYRO(12,180,.5,0);
         TurnAbsolute(90,.5,1);
         MoveUntilEncoderGYRO(20,180,1,98);
-        hooks.setDown(false);
-        TurnAbsolute(90,.2,.5);
-        MoveUntilEncoderGYRO(55,180,1,93);
+        hooks.setDown(false); //done manipulating first foundation
+       // TurnAbsolute(90,.2,.5);
+        MoveUntilEncoderGYRO(55,180,1,91);
         MoveUntilEncoderGYRO(7,270,1,90);
         alignment.alignment(Alignment.ALIGN_DOWN);
         MoveUntilRangeB(5,180,.2);
         TurnAbsolute(0,.2,.5);
-        grabber.rotate(Grabber.ROTATE_ALIGN);
+        grabber.rotate(Grabber.ROTATE_ALIGN); //pick up second block
         grabber.intake(Grabber.INTAKE_IN);
         MoveUntilTouch(0,.2,0);
         grabber.rotate(Grabber.ROTATE_DOWN);
@@ -74,15 +70,16 @@ public class blueAuto49 extends GorillabotsCentral {
         grabber.intake(Grabber.INTAKE_IN * .1);
         MoveUntilEncoderGYRO(3,180,.3,0);
         TurnAbsolute(90,.2,.5);
-        MoveUntilEncoderGYRO(55,0,1,92);
+        MoveUntilEncoderGYRO(52,0,1,91);
         grabber.intake(Grabber.INTAKE_OUT);
-        MoveUntilRangeF(4,0,.5);
+        MoveUntilRangeF(4,0,.3);
+        sleep(400);
         MoveUntilEncoderGYRO(20,180,1,92);
         MoveUntilRangeB(17,180,.2);
         alignment.alignment(Alignment.ALIGN_DOWN);
         MoveUntilEncoderGYRO(5,270,.5,90);
         TurnAbsolute(0,.2,.5);
-        grabber.rotate(Grabber.ROTATE_ALIGN);
+        grabber.rotate(Grabber.ROTATE_ALIGN); //pick up third block
         grabber.intake(Grabber.INTAKE_IN);
         MoveUntilTouchRangeF(0,.2,0);
         grabber.rotate(Grabber.ROTATE_DOWN);
@@ -92,17 +89,23 @@ public class blueAuto49 extends GorillabotsCentral {
         grabber.intake(Grabber.INTAKE_IN * .1);
         MoveUntilEncoderGYRO(3,180,.3,0);
         TurnAbsolute(90,.2,.5);
-        hooks.hookR(Hooks.HOOKR_DOWN);
+        hooks.hookR(Hooks.HOOKR_MID);
         hooks.hookL(Hooks.HOOKL_MID);
         MoveUntilEncoderGYRO(40,0,1,92);
-        MoveUntilRangeF(4,0,.5);
-        hooks.hookL(Hooks.HOOKL_DOWN);
+        grabber.rotate(Grabber.ROTATE_INTCAPDEP);
+        alignment.alignment(Alignment.ALGIN_INIT);
+        MoveUntilRangeF(4,0,.3);
+        MoveUntilEncoderGYRO(10,90,1,90);
+        hooks.setDown(true);
+        sleep(300);
         grabber.intake(Grabber.INTAKE_OUT);
+        TurnAbsolute(130,.5,.1);
         specialPush();
+        hooks.setDown(false);
+        sleep(1100);
+        MoveUntilEncoderGYRO(10,180,1,83);
+        TurnAbsolute(90,.3,.7);
         setParkerPos(900);
-        sleep(500);
-        hooks.hookL(Hooks.HOOKL_UP);
-        MoveUntilEncoderGYRO(10,180,1,100);
         return;
     }
     public void specialPush()
@@ -111,8 +114,8 @@ public class blueAuto49 extends GorillabotsCentral {
         setMotorsBackwards();
         drive.mfr.setPower(-.7);
         drive.mbr.setPower(-.7);
-        drive.mbl.setPower(-.3);
-        drive.mfl.setPower(-.3);
+        drive.mbl.setPower(-.5);
+        drive.mfl.setPower(-.5);
 
     }
 }
