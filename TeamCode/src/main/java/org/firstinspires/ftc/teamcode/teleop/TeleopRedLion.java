@@ -146,25 +146,22 @@ public class TeleopRedLion extends GorillabotsCentral {
             switch (intCapStage)
             {
                 case -1:
-                    intCapStage = 3;
+                    intCapStage = 2;
                     break;
                 case 0:
                     capstone.intCapstone(Capstone.INTCAPSTONE_SAFE);
                     break;
                 case 1:
-                    capstone.intCapstone(Capstone.INTCAPSTONE_PREP);
-                    break;
-                case 2:
                     grabber.rotate(Grabber.ROTATE_INTCAPDEP);
-                    capstone.intCapstone(Capstone.INTCAPSTONE_PREP);
+                    capstone.intCapstone(Capstone.INTCAPSTONE_SAFE);
                     alignment.alignment(Alignment.ALGIN_INIT);
                     break;
-                case 3:
+                case 2:
                     grabber.rotate(Grabber.ROTATE_INTCAPDEP);
                     capstone.intCapstone(Capstone.INTCAPSTONE_ACTIVATE);
                     alignment.alignment(Alignment.ALGIN_INIT);
                     break;
-                case 4:
+                case 3:
                     intCapStage = 0;
                     break;
 
@@ -189,7 +186,7 @@ public class TeleopRedLion extends GorillabotsCentral {
                         grabber.rotate(Grabber.ROTATE_INIT);
                         alignment.alignment(Alignment.ALGIN_INIT);
                     }
-                    else if (intCapStage >= 2) {
+                    else if (intCapStage >= 1) {
                         grabber.rotate(Grabber.ROTATE_INTCAPDEP);
                         alignment.alignment(Alignment.ALGIN_INIT);
                     }
@@ -203,7 +200,7 @@ public class TeleopRedLion extends GorillabotsCentral {
                 case 1: //collection
                     drive.go(x * .35, y * .35, r * .35); // drive speed 7/20
                     //alignment.alignment(Alignment.ALIGN_DOWN);
-
+                    alignment.alignment(Alignment.ALIGN_TELEREST);
                     if(!sensors.alignT.getState()){
                         doIt = true;
                     }
@@ -240,7 +237,7 @@ public class TeleopRedLion extends GorillabotsCentral {
                         grabber.rotate(Grabber.ROTATE_INIT);
                         alignment.alignment(Alignment.ALGIN_INIT);
                     }
-                    else if (intCapStage >= 2) {
+                    else if (intCapStage >= 1) {
                         grabber.rotate(Grabber.ROTATE_INTCAPDEP);
                         alignment.alignment(Alignment.ALGIN_INIT);
                     }
@@ -254,6 +251,7 @@ public class TeleopRedLion extends GorillabotsCentral {
                 case 3:  //releasing
                     drive.go(x * .3, y * .3, r * .3); // drive speed 3/10
                     grabber.rotate(Grabber.ROTATE_DOWN);
+                    alignment.alignment(Alignment.ALIGN_TELEREST);
 
                     if (releasing) {
                         grabber.intake(Grabber.INTAKE_OUT);

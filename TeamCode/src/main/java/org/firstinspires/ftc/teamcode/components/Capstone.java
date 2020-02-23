@@ -15,9 +15,8 @@ public class Capstone {
     public static final double CAPSTONE_INIT = .24; //
     public static final double CAPSTONE_DEPLOY = .5;
 
-    public static final double INTCAPSTONE_SAFE = .55;
-    public static final double INTCAPSTONE_PREP = .2;
-    public static final double INTCAPSTONE_ACTIVATE = 0.55;
+    public static final double INTCAPSTONE_SAFE = 0;
+    public static final double INTCAPSTONE_ACTIVATE = 1;
 
     public Capstone(HardwareMap hardwareMap, Telemetry telemetry) {
         tele = telemetry;
