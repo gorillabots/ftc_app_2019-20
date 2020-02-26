@@ -11,10 +11,10 @@ public class Alignment
 
     Servo alignment;
 
-    public static final double ALIGN_DOWN = .3;
-    public static final double ALIGN_TELEREST = .87;
-    public static final double ALIGN_45 = .77;
-    public static final double ALGIN_INIT = .94;
+    public static final double ALIGN_DOWN = .79;
+    public static final double ALIGN_TELEREST = .38;
+    public static final double ALIGN_45 = .44;
+    public static final double ALGIN_INIT = .26;
 
 
     public Alignment(HardwareMap hardwareMap, Telemetry telemetry)

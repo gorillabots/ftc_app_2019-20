@@ -16,9 +16,9 @@ public class Hooks
     public static final double HOOKR_UP = .09;
     public static final double HOOKR_MID = .54;
 
-    public static final double HOOKL_DOWN = .14;
-    public static final double HOOKL_UP = .77;
-    public static final double HOOKL_MID = .31;
+    public static final double HOOKL_DOWN = .82;
+    public static final double HOOKL_UP = .01;
+    public static final double HOOKL_MID = .6;
 
     public Hooks(HardwareMap hardwareMap, Telemetry telemetry)
     {

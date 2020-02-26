@@ -250,8 +250,24 @@ public class TeleopRedLion extends GorillabotsCentral {
                     break;
                 case 3:  //releasing
                     drive.go(x * .3, y * .3, r * .3); // drive speed 3/10
-                    grabber.rotate(Grabber.ROTATE_DOWN);
-                    alignment.alignment(Alignment.ALIGN_TELEREST);
+
+                    if(isArmUp){
+                        grabber.rotate(Grabber.ROTATE_INIT);
+                        alignment.alignment(Alignment.ALGIN_INIT);
+                    }
+                    else if (intCapStage >= 1) {
+                        grabber.rotate(Grabber.ROTATE_INTCAPDEP);
+                        alignment.alignment(Alignment.ALGIN_INIT);
+                    }
+                    else if (gamepad2.b)
+                    {
+                        grabber.rotate(Grabber.ROTATE_BARELY);
+                    }
+                    else {
+                        grabber.rotate(Grabber.ROTATE_DOWN);
+                        alignment.alignment(Alignment.ALIGN_TELEREST);
+                    }
+
 
                     if (releasing) {
                         grabber.intake(Grabber.INTAKE_OUT);

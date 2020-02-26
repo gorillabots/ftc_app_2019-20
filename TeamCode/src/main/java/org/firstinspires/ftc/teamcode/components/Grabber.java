@@ -24,6 +24,7 @@ public class Grabber
     public static final double ROTATE_ALIGN = 0.32;
     public static final double ROTATE_DOWN = 0.19;
     public static final double ROTATE_INTCAPDEP = .64; //
+    public static final double ROTATE_BARELY = .3;
 
     public static final double INTAKE_IN = 1;
     public static final double INTAKE_OUT = -1;
