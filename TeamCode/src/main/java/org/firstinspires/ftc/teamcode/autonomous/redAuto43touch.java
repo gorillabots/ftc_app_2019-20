@@ -80,16 +80,18 @@ public class redAuto43touch extends GorillabotsCentral {
         switch (pos) { //drive back and pick up the 2nd block
             case 1:
                 MoveUntilEncoderGYRO(83, 180, .7, -83);
-                MoveUntilRangeB(5, 180, .3);
+                MoveUntilEncoderGYRO(7,90,1,-90);
+                MoveUntilRangeB(5, 180, .2);
+                alignment.alignment(Alignment.ALIGN_DOWN);
                 grabber.intake(Grabber.INTAKE_IN);
-                grabber.rotate(Grabber.ROTATE_INIT);
-                TurnAbsolute(0, .2, .5);
-                MoveUntilTime(500, 270, .5);
-                MoveUntilTime(250, 180, .4);
                 grabber.rotate(Grabber.ROTATE_ALIGN);
-                MoveUntilRangeF(12.5,0, .2);
+                TurnAbsolute(0, .2, .5);
+                MoveUntilTime(250, 180, .4);
+                MoveUntilTime(500, 270, .5);
+                grabber.rotate(Grabber.ROTATE_ALIGN);
+                MoveUntilTouchRangeF(0,.2, 0);
                 TurnAbsolute(29, .2, .5);
-                MoveUntilEncoderGYRO(6, 0, .4, 30);
+                MoveUntilEncoderGYRO(2, 0, .4, 30);
                 grabber.rotate(Grabber.ROTATE_DOWN);
                 sleep(500);
                 TurnAbsolute(0, .2, .5);
@@ -102,7 +104,7 @@ public class redAuto43touch extends GorillabotsCentral {
                 MoveUntilRangeB(5, 180, .2);
                 TurnAbsolute(0, .2, .5);
                 MoveUntilTime(500,270,.4);
-                MoveUntilEncoderGYRO(5,90,.3,0);
+                MoveUntilEncoderGYRO(4,90,.3,0);
                 grabber.rotate(Grabber.ROTATE_ALIGN); //pick up second block
                 grabber.intake(Grabber.INTAKE_IN);
                 MoveUntilTouchRangeF(0, .2, 0);
@@ -110,8 +112,8 @@ public class redAuto43touch extends GorillabotsCentral {
                 sleep(750);
                 break;
             case 3:
-                MoveUntilEncoderGYRO(68, 180, .7, -83);
-                MoveUntilRangeB(22, 180, .3);
+                MoveUntilEncoderGYRO(64, 180, .7, -83);
+                MoveUntilRangeB(22.5, 180, .2);
                 MoveUntilEncoderGYRO(7, 90, .5, -90);
                 alignment.alignment(Alignment.ALIGN_DOWN);
                 grabber.intake(Grabber.INTAKE_IN);
@@ -146,7 +148,7 @@ public class redAuto43touch extends GorillabotsCentral {
                 MoveUntilEncoderGYRO(100, 0, .8, -85.7);
                 break;
             case 2:
-                MoveUntilEncoderGYRO(99, 0, .8, -85.7);
+                MoveUntilEncoderGYRO(99, 0, .8, -85);
                 break;
             case 3:
                 MoveUntilEncoderGYRO(90, 0, .7, -85.7);
@@ -156,7 +158,8 @@ public class redAuto43touch extends GorillabotsCentral {
         alignment.alignment(Alignment.ALGIN_INIT);
         hooks.hookR(Hooks.HOOKR_MID);
         hooks.hookL(Hooks.HOOKL_MID);
-        MoveUntilRangeF(21, 0, .5);
+        sleep(100);
+        MoveUntilRangeF(20, 0, .5);
         TurnAbsolute(0, .2, .5);
         MoveUntilRangeF(4, 0, .3);
         grabber.rotate(Grabber.ROTATE_45);
@@ -175,7 +178,7 @@ public class redAuto43touch extends GorillabotsCentral {
         MoveUntilEncoder(8, 160, .5);
         MoveUntilEncoderGYRO(10,270,1,-90);
         TurnAbsolute(-102, .2, .5);
-        setParkerPos(900);
+        //setParkerPos(900);
         parker.parkerPow(0);
         MoveUntilEncoder(10, 180, .5);
         return;

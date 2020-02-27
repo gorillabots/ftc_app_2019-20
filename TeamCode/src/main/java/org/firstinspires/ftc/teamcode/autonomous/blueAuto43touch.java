@@ -22,7 +22,7 @@ public class blueAuto43touch extends GorillabotsCentral {
         switch (pos) {
             case 1:
                 MoveUntilEncoderGYRO(5, 0, .3, 0);
-                MoveUntilEncoderGYRO(11.5, 270, .3, 0);
+                MoveUntilEncoderGYRO(10.5, 270, .3, 0);
                 MoveUntilEncoderGYRO(8, 0, .7, 0);
                 MoveUntilTouchRangeF(0, .2, 0);
                 break;
@@ -44,7 +44,7 @@ public class blueAuto43touch extends GorillabotsCentral {
         alignment.alignment(Alignment.ALIGN_45);
         grabber.intake(Grabber.INTAKE_IN * .1);
 
-        MoveUntilEncoder(5, 180, .3);
+        MoveUntilEncoder(4, 180, .3);
         TurnAbsolute(-90, .2, .5);
         switch (pos) {
 
@@ -67,7 +67,7 @@ public class blueAuto43touch extends GorillabotsCentral {
         grabber.rotate(Grabber.ROTATE_DOWN);
         grabber.intake(Grabber.INTAKE_OUT);
         sleep(550);
-        grabber.intake(Grabber.INTAKE_OUT);
+        grabber.intake(Grabber.INTAKE_HOLD);
         grabber.rotate(Grabber.ROTATE_45);
         MoveUntilEncoder(5, 180, .3);
         TurnAbsolute(93, .2, .5);
@@ -75,8 +75,8 @@ public class blueAuto43touch extends GorillabotsCentral {
 
         switch (pos) {
             case 1:
-                MoveUntilEncoderGYRO(86, 180, .7, 90);
-                MoveUntilRangeB(22, 180, .3);
+                MoveUntilEncoderGYRO(76, 180, .7, 90);
+                MoveUntilRangeB(25.5, 180, .2);
                 MoveUntilEncoderGYRO(7, 270, .5, 90);
                 alignment.alignment(Alignment.ALIGN_DOWN);
                 grabber.intake(Grabber.INTAKE_IN);
@@ -87,20 +87,20 @@ public class blueAuto43touch extends GorillabotsCentral {
                 sleep(750);
                 break;
             case 2:
-                MoveUntilEncoderGYRO(100, 180, .7, 90);
-                MoveUntilRangeB(5, 180, .3);
+                MoveUntilEncoderGYRO(90, 180, .7, 90);
+                MoveUntilRangeB(5, 180, .2);
                 MoveUntilEncoderGYRO(7, 270, .5, 90);
                 alignment.alignment(Alignment.ALIGN_DOWN);
                 grabber.intake(Grabber.INTAKE_IN);
                 grabber.rotate(Grabber.ROTATE_ALIGN);
                 TurnAbsolute(0, .2, .5);
-                MoveUntilTouchRangeF(8, 0, .2);
+                MoveUntilTouchRangeF(0, .2, 0);
                 grabber.rotate(Grabber.ROTATE_DOWN);
                 sleep(750);
                 break;
             case 3: //hard
-                MoveUntilEncoderGYRO(100, 180, .7, 90);
-                MoveUntilRangeB(5, 180, .3);
+                MoveUntilEncoderGYRO(90, 180, .7, 90);
+                MoveUntilRangeB(5, 180, .2);
                 alignment.alignment(Alignment.ALIGN_DOWN);
                 grabber.intake(Grabber.INTAKE_IN);
                 grabber.rotate(Grabber.ROTATE_ALIGN);
@@ -108,9 +108,9 @@ public class blueAuto43touch extends GorillabotsCentral {
                 MoveUntilTime(500, 90, .5);
                 MoveUntilTime(250, 180, .4);
                 grabber.rotate(Grabber.ROTATE_ALIGN);
-                MoveUntilRangeF(12.5,0, .2);
+                MoveUntilTouchRangeF(0,.2, 0);
                 TurnAbsolute(-29, .2, .5);
-                MoveUntilEncoderGYRO(6, 0, .4, -30);
+                MoveUntilEncoderGYRO(2, 0, .4, -30);
                 grabber.rotate(Grabber.ROTATE_DOWN);
                 sleep(500);
                 TurnAbsolute(0, .2, .5);
@@ -144,6 +144,7 @@ public class blueAuto43touch extends GorillabotsCentral {
                 MoveUntilEncoderGYRO(106, 0, .7, 93);
                 break;
         }
+        grabber.intake(Grabber.INTAKE_IN * .3);
         grabber.rotate(Grabber.ROTATE_INIT);
         alignment.alignment(Alignment.ALGIN_INIT);
         hooks.hookR(Hooks.HOOKR_MID);
@@ -152,11 +153,15 @@ public class blueAuto43touch extends GorillabotsCentral {
         MoveUntilRangeF(20, 0, .5);
         TurnAbsolute(0, .2, .5);
         MoveUntilRangeF(4, 0, .3);
-        hooks.setDown(true);
-        grabber.rotate(Grabber.ROTATE_45);
+
+        grabber.rotate(Grabber.ROTATE_DOWN);
         grabber.intake(Grabber.INTAKE_OUT);
-        sleep(250);
+        sleep(400);
         grabber.rotate(Grabber.ROTATE_INIT);
+        MoveUntilEncoderGYRO(5,90,.5,0);
+        MoveUntilRangeF(4, 0, .3);
+        hooks.setDown(true);
+        sleep(250);
         MoveUntilEncoder(4, 180, .2);
         MoveUntilEncoder(14, 180, 1);
         specialTurn();

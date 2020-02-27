@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Hooks;
 import org.firstinspires.ftc.teamcode.components.Parker;
-
+@Disabled
 @Autonomous(group="test", name="blue43")
 
 public class blueAuto43 extends GorillabotsCentral

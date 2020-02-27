@@ -381,7 +381,7 @@ public abstract class GorillabotsCentral extends LinearOpMode {
     public void MoveUntilTouchRangeF (double direction, double power, double gyroT){
         setDriveEncoderOn(false);
         setMotorsBackwards();
-        while ((sensors.alignT.getState() && sensors.getDistanceF() > 9) && opModeIsActive()) {
+        while ((sensors.alignT.getState() && sensors.getDistanceF() > 7.75) && opModeIsActive()) { //9
             MoveTowR(direction, power,(gyro.getAngle() - gyroT) / 50);
         }
         stopMotors();

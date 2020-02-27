@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.GorillabotsCentral;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Hooks;
 import org.firstinspires.ftc.teamcode.components.Parker;
-
+@Disabled
 @Autonomous(group = "test", name = "red43")
 
 public class redAuto43 extends GorillabotsCentral {
