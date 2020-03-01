@@ -19,12 +19,12 @@ public class Grabber
     public DcMotor lift;
 
 
-    public static final double ROTATE_INIT = .73;
-    public static final double ROTATE_45 = .39;
-    public static final double ROTATE_ALIGN = 0.32;
-    public static final double ROTATE_DOWN = 0.19;
-    public static final double ROTATE_INTCAPDEP = .64; //
-    public static final double ROTATE_BARELY = .3;
+    public static final double ROTATE_INIT = .57;//.73
+    public static final double ROTATE_45 = .23;//.39
+    public static final double ROTATE_ALIGN = 0.16;//.32
+    public static final double ROTATE_DOWN = 0.03; //0.03 // 0.19 - 0.03 = 0.16
+    public static final double ROTATE_INTCAPDEP = .48; // 0.64
+    public static final double ROTATE_BARELY = .14;
 
     public static final double INTAKE_IN = 1;
     public static final double INTAKE_OUT = -1;

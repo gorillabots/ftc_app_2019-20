@@ -14,7 +14,7 @@ public class Alignment
     public static final double ALIGN_DOWN = .79;
     public static final double ALIGN_TELEREST = .38;
     public static final double ALIGN_45 = .44;
-    public static final double ALGIN_INIT = .26;
+    public static final double ALGIN_INIT = .32;
 
 
     public Alignment(HardwareMap hardwareMap, Telemetry telemetry)

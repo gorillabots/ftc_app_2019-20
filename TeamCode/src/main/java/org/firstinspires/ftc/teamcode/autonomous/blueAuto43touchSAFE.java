@@ -7,9 +7,9 @@ import org.firstinspires.ftc.teamcode.components.Alignment;
 import org.firstinspires.ftc.teamcode.components.Grabber;
 import org.firstinspires.ftc.teamcode.components.Hooks;
 
-@Autonomous(group = "test", name = "blue43touch")
+@Autonomous(group = "test", name = "blue43touchSAFE")
 
-public class blueAuto43touch extends GorillabotsCentral {
+public class blueAuto43touchSAFE extends GorillabotsCentral {
     public void runOpMode() {
         initializeComponentsAutonomous();
 
@@ -18,6 +18,11 @@ public class blueAuto43touch extends GorillabotsCentral {
         grabber.intake(Grabber.INTAKE_IN);
         alignment.alignment(Alignment.ALIGN_DOWN);
         grabber.rotate(Grabber.ROTATE_ALIGN);
+
+        if(!opModeIsActive())
+        {
+            return;
+        }
 
         switch (pos) {
             case 1:
@@ -38,6 +43,11 @@ public class blueAuto43touch extends GorillabotsCentral {
                 break;
 
         }
+
+        if(!opModeIsActive())
+        {
+            return;
+        }
         grabber.rotate(Grabber.ROTATE_DOWN); //first block
         sleep(600);
         grabber.rotate(Grabber.ROTATE_45);
@@ -46,6 +56,11 @@ public class blueAuto43touch extends GorillabotsCentral {
 
         MoveUntilEncoder(4, 180, .3);
         TurnAbsolute(-90, .2, .5);
+
+        if(!opModeIsActive())
+        {
+            return;
+        }
         switch (pos) {
 
             case 1:
@@ -57,6 +72,10 @@ public class blueAuto43touch extends GorillabotsCentral {
             case 3:
                 MoveUntilEncoderGYRO(68, 180, .7, -88);
                 break;
+        }
+        if(!opModeIsActive())
+        {
+            return;
         }
         MoveUntilRangeB(28, 180, .3);
 
@@ -72,7 +91,10 @@ public class blueAuto43touch extends GorillabotsCentral {
         MoveUntilEncoder(5, 180, .3);
         TurnAbsolute(93, .2, .5);
         // MoveUntilEncoder(100,180,.3);
-
+        if(!opModeIsActive())
+        {
+            return;
+        }
         switch (pos) {
             case 1:
                 MoveUntilEncoderGYRO(60, 180, .7, 90);
@@ -117,6 +139,10 @@ public class blueAuto43touch extends GorillabotsCentral {
                 sleep(400);
                 break;
         }
+        if(!opModeIsActive())
+        {
+            return;
+        }
         grabber.rotate(Grabber.ROTATE_45);
         alignment.alignment(Alignment.ALIGN_45);
         grabber.intake(Grabber.INTAKE_IN * .1);
@@ -130,6 +156,10 @@ public class blueAuto43touch extends GorillabotsCentral {
             case 3:
                 MoveUntilEncoder(3.5, 180, .3);
                 break;
+        }
+        if(!opModeIsActive())
+        {
+            return;
         }
 
         TurnAbsolute(90, .2, .5);
@@ -149,11 +179,18 @@ public class blueAuto43touch extends GorillabotsCentral {
         alignment.alignment(Alignment.ALGIN_INIT);
         hooks.hookR(Hooks.HOOKR_MID);
         hooks.hookL(Hooks.HOOKL_MID);
+        if(!opModeIsActive())
+        {
+            return;
+        }
 
         MoveUntilRangeF(20, 0, .5);
         TurnAbsolute(0, .2, .5);
         MoveUntilRangeF(4, 0, .3);
-
+        if(!opModeIsActive())
+        {
+            return;
+        }
         grabber.rotate(Grabber.ROTATE_DOWN);
         grabber.intake(Grabber.INTAKE_OUT);
         sleep(400);
@@ -165,12 +202,24 @@ public class blueAuto43touch extends GorillabotsCentral {
         MoveUntilEncoder(4, 180, .2);
         MoveUntilEncoder(14, 180, 1);
         specialTurn();
+        if(!opModeIsActive())
+        {
+            return;
+        }
         grabber.intake(Grabber.INTAKE_HOLD);
         hooks.setDown(false);
         MoveUntilTime(500, 0, .7);
         MoveUntilEncoder(8, 160, .5);
         MoveUntilEncoderGYRO(10,90,1,90);
+        if(!opModeIsActive())
+        {
+            return;
+        }
         TurnAbsolute(102, .2, .5);
+        if(!opModeIsActive())
+        {
+            return;
+        }
         setParkerPos(900);
         parker.parkerPow(0);
         MoveUntilEncoder(10, 180, .5);
